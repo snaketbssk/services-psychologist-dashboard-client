@@ -9,9 +9,5 @@ export default async function LanguagesPage({
   const { locale } = await params;
   setRequestLocale(locale);
 
-  return (
-    <main className="mx-auto max-w-2xl px-4 py-10">
-      <LanguagesClient />
-    </main>
-  );
+  return <LanguagesClient />;
 }

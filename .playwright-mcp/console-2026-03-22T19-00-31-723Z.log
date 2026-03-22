@@ -1,0 +1,9 @@
+[    6796ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ https://localhost:7271/api/videos?PageNumber=1&PageSize=20:0
+[   10130ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ https://localhost:7271/api/videos?PageNumber=1&PageSize=20:0
+[   14453ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ https://localhost:7271/api/videos?PageNumber=1&PageSize=20:0
+[   20797ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ https://localhost:7271/api/videos?PageNumber=1&PageSize=20:0
+[   47243ms] [ERROR] Failed to load resource: net::ERR_CONNECTION_REFUSED @ https://localhost:7271/api/videos?PageNumber=1&PageSize=20:0
+[   66911ms] [ERROR] WebSocket connection to 'ws://localhost:3000/_next/webpack-hmr?id=7BunaCRg7WCWxrffA_cyx' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13299
+[   70250ms] [ERROR] WebSocket connection to 'ws://localhost:3000/_next/webpack-hmr?id=7BunaCRg7WCWxrffA_cyx' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13299
+[   73576ms] [ERROR] WebSocket connection to 'ws://localhost:3000/_next/webpack-hmr?id=7BunaCRg7WCWxrffA_cyx' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://localhost:3000/_next/static/chunks/node_modules_next_dist_client_0fhqo1d._.js:13299
+[   79733ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:3000/en/videos:0

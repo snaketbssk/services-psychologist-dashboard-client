@@ -5,6 +5,7 @@ import { getMessages, setRequestLocale } from "next-intl/server";
 import QueryProvider from "@/providers/QueryProvider";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
+import DashboardShell from "@/components/layout/DashboardShell";
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -39,7 +40,9 @@ export default async function LocaleLayout({
   return (
     <QueryProvider>
       <NextIntlClientProvider messages={messages}>
-        {children}
+        <DashboardShell locale={locale}>
+          {children}
+        </DashboardShell>
       </NextIntlClientProvider>
     </QueryProvider>
   );

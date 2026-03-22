@@ -7,6 +7,7 @@ import {
   createBlog,
   updateBlog,
   deleteBlog,
+  getBlogTranslations,
   createBlogTranslation,
   updateBlogTranslation,
   deleteBlogTranslation,
@@ -210,13 +211,11 @@ function BlogTranslationFormDialog({
   translation,
   languages,
   onClose,
-  onSuccess,
 }: {
   blogId: string;
   translation?: IBlogTranslationDto;
   languages: ILanguageDto[];
   onClose: () => void;
-  onSuccess?: (t: IBlogTranslationDto) => void;
 }) {
   const [languageId, setLanguageId] = useState(
     translation?.languageId ?? languages[0]?.id ?? ""
@@ -224,6 +223,7 @@ function BlogTranslationFormDialog({
   const [title, setTitle] = useState(translation?.title ?? "");
   const [excerpt, setExcerpt] = useState(translation?.excerpt ?? "");
   const [content, setContent] = useState(translation?.content ?? "");
+  const queryClient = useQueryClient();
 
   const createMutation = useMutation({
     mutationFn: () =>
@@ -234,8 +234,10 @@ function BlogTranslationFormDialog({
         excerpt: excerpt || null,
         content: content || null,
       }),
-    onSuccess: (res) => {
-      onSuccess?.(res.data);
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["blog-translations", blogId],
+      });
       onClose();
     },
   });
@@ -247,8 +249,10 @@ function BlogTranslationFormDialog({
         excerpt: excerpt || null,
         content: content || null,
       }),
-    onSuccess: (res) => {
-      onSuccess?.(res.data);
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["blog-translations", blogId],
+      });
       onClose();
     },
   });
@@ -347,20 +351,24 @@ function BlogTranslationFormDialog({
 // ─── Translation Delete Confirm Dialog ────────────────────────────────────────
 
 function BlogTranslationDeleteDialog({
+  blogId,
   translation,
   languageCode,
   onClose,
-  onSuccess,
 }: {
+  blogId: string;
   translation: IBlogTranslationDto;
   languageCode: string;
   onClose: () => void;
-  onSuccess?: () => void;
 }) {
+  const queryClient = useQueryClient();
+
   const deleteMutation = useMutation({
     mutationFn: () => deleteBlogTranslation(translation.id),
     onSuccess: () => {
-      onSuccess?.();
+      queryClient.invalidateQueries({
+        queryKey: ["blog-translations", blogId],
+      });
       onClose();
     },
   });
@@ -402,14 +410,10 @@ function BlogTranslationRow({
   blogId,
   translation,
   languages,
-  onUpdated,
-  onDeleted,
 }: {
   blogId: string;
   translation: IBlogTranslationDto;
   languages: ILanguageDto[];
-  onUpdated: (t: IBlogTranslationDto) => void;
-  onDeleted: (id: string) => void;
 }) {
   const [editOpen, setEditOpen] = useState(false);
   const [deleteOpen, setDeleteOpen] = useState(false);
@@ -442,7 +446,6 @@ function BlogTranslationRow({
                 translation={translation}
                 languages={languages}
                 onClose={() => setEditOpen(false)}
-                onSuccess={onUpdated}
               />
             </DialogContent>
           </Dialog>
@@ -465,10 +468,10 @@ function BlogTranslationRow({
                 <DialogTitle>Delete Translation</DialogTitle>
               </DialogHeader>
               <BlogTranslationDeleteDialog
+                blogId={blogId}
                 translation={translation}
                 languageCode={language?.code ?? translation.languageId}
                 onClose={() => setDeleteOpen(false)}
-                onSuccess={() => onDeleted(translation.id)}
               />
             </DialogContent>
           </Dialog>
@@ -482,26 +485,28 @@ function BlogTranslationRow({
 
 function BlogTranslationsDialog({ blog }: { blog: IBlogShortDto }) {
   const [addOpen, setAddOpen] = useState(false);
-  const [translations, setTranslations] = useState<IBlogTranslationDto[]>([]);
+  const [page, setPage] = useState(1);
+  const pageSize = 20;
+
+  const { data: translationsData, isLoading, isError } = useQuery({
+    queryKey: ["blog-translations", blog.id, page],
+    queryFn: () =>
+      getBlogTranslations({
+        BlogId: blog.id,
+        PageNumber: page,
+        PageSize: pageSize,
+      }).then((r) => r.data),
+  });
 
   const { data: languagesData } = useQuery({
     queryKey: ["languages"],
     queryFn: () => getLanguages({ PageSize: 100 }).then((r) => r.data),
   });
 
+  const translations = translationsData?.values ?? [];
+  const totalCount = translationsData?.totalCount ?? 0;
+  const totalPages = Math.max(1, Math.ceil(totalCount / pageSize));
   const languages = languagesData?.values ?? [];
-
-  const handleAdded = (t: IBlogTranslationDto) => {
-    setTranslations((prev) => [...prev, t]);
-  };
-
-  const handleUpdated = (t: IBlogTranslationDto) => {
-    setTranslations((prev) => prev.map((x) => (x.id === t.id ? t : x)));
-  };
-
-  const handleDeleted = (id: string) => {
-    setTranslations((prev) => prev.filter((x) => x.id !== id));
-  };
 
   return (
     <div className="flex flex-col gap-4">
@@ -525,17 +530,21 @@ function BlogTranslationsDialog({ blog }: { blog: IBlogShortDto }) {
               blogId={blog.id}
               languages={languages}
               onClose={() => setAddOpen(false)}
-              onSuccess={handleAdded}
             />
           </DialogContent>
         </Dialog>
       </div>
 
-      {translations.length === 0 && (
-        <p className="text-sm text-muted-foreground">
-          No translations added yet. Translations added here are visible until
-          the dialog is closed.
-        </p>
+      {isLoading && (
+        <p className="text-sm text-muted-foreground">Loading…</p>
+      )}
+
+      {isError && (
+        <p className="text-sm text-destructive">Failed to load translations.</p>
+      )}
+
+      {!isLoading && !isError && translations.length === 0 && (
+        <p className="text-sm text-muted-foreground">No translations yet.</p>
       )}
 
       {translations.length > 0 && (
@@ -560,12 +569,39 @@ function BlogTranslationsDialog({ blog }: { blog: IBlogShortDto }) {
                 blogId={blog.id}
                 translation={t}
                 languages={languages}
-                onUpdated={handleUpdated}
-                onDeleted={handleDeleted}
               />
             ))}
           </tbody>
         </table>
+      )}
+
+      {totalPages > 1 && (
+        <div className="flex items-center justify-between border-t border-border pt-3">
+          <span className="text-xs text-muted-foreground">
+            {totalCount} translation{totalCount !== 1 ? "s" : ""}
+          </span>
+          <div className="flex items-center gap-1">
+            <Button
+              variant="outline"
+              size="xs"
+              onClick={() => setPage((p) => Math.max(1, p - 1))}
+              disabled={page === 1}
+            >
+              Previous
+            </Button>
+            <span className="px-2 text-xs text-muted-foreground">
+              {page} / {totalPages}
+            </span>
+            <Button
+              variant="outline"
+              size="xs"
+              onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+              disabled={page === totalPages}
+            >
+              Next
+            </Button>
+          </div>
+        </div>
       )}
     </div>
   );

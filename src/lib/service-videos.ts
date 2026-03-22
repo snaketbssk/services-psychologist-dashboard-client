@@ -53,6 +53,18 @@ export interface IVideoTranslationDto {
   updatedAt: string | null;
 }
 
+export interface IPagedVideoTranslations {
+  totalCount: number;
+  values: IVideoTranslationDto[] | null;
+}
+
+export interface IVideoTranslationsFilter {
+  PageNumber?: number;
+  PageSize?: number;
+  VideoId?: string;
+  LanguageId?: string;
+}
+
 export interface ICreateVideoTranslationRequest {
   videoId: string | null;
   languageId: string | null;
@@ -93,6 +105,12 @@ export const deleteVideo = (
   apiClient.delete(`videos/${id}`, undefined, cancelToken);
 
 // ─── Video Translation API functions ──────────────────────────────────────────
+
+export const getVideoTranslations = (
+  params?: IVideoTranslationsFilter,
+  cancelToken?: CancelToken
+): Promise<AxiosResponse<IPagedVideoTranslations>> =>
+  apiClient.get("video-translations", params, cancelToken);
 
 export const createVideoTranslation = (
   data: ICreateVideoTranslationRequest,

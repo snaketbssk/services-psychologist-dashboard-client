@@ -28,6 +28,18 @@ export interface IBlogsFilter {
   PageSize?: number;
 }
 
+export interface IBlogTranslationsFilter {
+  PageNumber?: number;
+  PageSize?: number;
+  BlogId?: string;
+  LanguageId?: string;
+}
+
+export interface IPagedBlogTranslations {
+  totalCount: number;
+  values: IBlogTranslationDto[] | null;
+}
+
 export interface ICreateBlogRequest {
   categoryId: string | null;
   internalName: string | null;
@@ -99,6 +111,12 @@ export const deleteBlog = (
   apiClient.delete(`blogs/${id}`, undefined, cancelToken);
 
 // ─── Blog Translation API functions ───────────────────────────────────────────
+
+export const getBlogTranslations = (
+  params?: IBlogTranslationsFilter,
+  cancelToken?: CancelToken
+): Promise<AxiosResponse<IPagedBlogTranslations>> =>
+  apiClient.get("blog-translations", params, cancelToken);
 
 export const createBlogTranslation = (
   data: ICreateBlogTranslationRequest,
