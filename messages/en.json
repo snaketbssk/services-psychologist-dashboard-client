@@ -1,0 +1,232 @@
+{
+  "welcome": "Welcome",
+  "getStarted": "Get Started",
+  "description": "Professional psychological services for your well-being",
+  "tagline": "Your journey to mental wellness starts here",
+  "home": "Home",
+  "about": "About",
+  "contact": "Contact",
+  "bookSession": "Book a Session",
+  "learnMore": "Learn More",
+  "language": "Language",
+
+  "NAV": {
+    "HOME": "Home",
+    "SERVICES": "Services",
+    "PAGES": "Pages",
+    "SHOP": "Shop",
+    "BLOGS": "Blogs",
+    "CONTACT": "Contact",
+    "PAGES_MEGA_TITLE": "Pages",
+    "SERVICES_MEGA_TITLE": "Counseling & Therapy Services",
+    "SHOP_MEGA_TITLE": "Shop",
+    "BLOGS_MEGA_TITLE": "Blogs",
+    "WHATS_NEW": "What's New",
+    "HOMEPAGE_01": "Homepage 01",
+    "HOMEPAGE_02": "Homepage 02",
+    "HOMEPAGE_03": "Homepage 03",
+    "HOMEPAGE_04": "Homepage 04",
+    "HOME_SLIDE": "Home Slide Text Scroll",
+    "ABOUT": "About",
+    "THERAPISTS": "Therapists",
+    "APPOINTMENT": "Appointment",
+    "OUR_PRODUCT": "Our Product",
+    "SHOP_CART": "Shop Cart",
+    "CHECK_OUT": "Check Out",
+    "SHOP_DETAILS": "Shop Details",
+    "BLOG_GRID": "Blog Grid",
+    "BLOG_DETAILS_1": "Blog Details 1",
+    "BLOG_DETAILS_2": "Blog Details 2",
+    "FAMILY_THERAPY": "Family Therapy",
+    "FAMILY_THERAPY_DESC": "Improve family relationships, resolve conflicts, and build a healthy living environment.",
+    "CHILD_THERAPY": "Child & Adolescent Therapy",
+    "CHILD_THERAPY_DESC": "Specialized support for children and teens, helping them navigate emotional challenges.",
+    "GROUP_THERAPY": "Group Therapy",
+    "GROUP_THERAPY_DESC": "Join others with similar challenges, sharing experiences and support in a guided group setting.",
+    "COUPLES_THERAPY": "Couples Therapy",
+    "COUPLES_THERAPY_DESC": "Enhance understanding and affection between couples, helping to strengthen the relationship.",
+    "TRAUMA_COUNSELING": "Trauma Counseling",
+    "TRAUMA_COUNSELING_DESC": "Focused therapy to help you heal from past trauma and regain control over your life.",
+    "INDIVIDUAL_COUNSELING": "Individual Counseling",
+    "INDIVIDUAL_COUNSELING_DESC": "Personal psychological support to help you overcome stress, anxiety, and regain confidence."
+  },
+
+  "HERO": {
+    "EYEBROW": "Professional Therapy Services",
+    "HEADING": "Take The First Step Towards A Balanced & Fulfilling Life",
+    "DESCRIPTION": "Our team of licensed psychologists and therapists is here to support you through life's challenges. We offer evidence-based therapy in a safe, confidential, and compassionate environment.",
+    "CTA_PRIMARY": "Book a Consultation",
+    "CTA_SECONDARY": "Or Call: 1-555-678-8888",
+    "YEARS": "Years",
+    "CLIENTS": "Clients"
+  },
+
+  "SERVICES_SECTION": {
+    "EYEBROW": "Our Services",
+    "HEADING": "Comprehensive Therapy Services",
+    "DESCRIPTION": "We offer a wide range of therapeutic services to support your mental health journey at every stage of life.",
+    "READ_MORE": "Read More →",
+    "INDIVIDUAL_TITLE": "Individual Counseling",
+    "INDIVIDUAL_DESC": "One-on-one therapy sessions tailored to your unique needs, helping you work through personal challenges and achieve emotional well-being.",
+    "FAMILY_TITLE": "Family Therapy",
+    "FAMILY_DESC": "Strengthen family relationships, improve communication, and resolve conflicts with guidance from our experienced family therapists.",
+    "COUPLES_TITLE": "Couples Therapy",
+    "COUPLES_DESC": "Rebuild trust, deepen connection, and develop healthier communication patterns with your partner in a safe, neutral environment.",
+    "GROUP_TITLE": "Group Therapy",
+    "GROUP_DESC": "Find community and shared healing in facilitated group sessions that foster empathy, support, and personal growth.",
+    "CHILD_TITLE": "Child & Adolescent Therapy",
+    "CHILD_DESC": "Specialized support for children and teenagers navigating anxiety, behavioral challenges, academic stress, and developmental changes.",
+    "TRAUMA_TITLE": "Trauma Counseling",
+    "TRAUMA_DESC": "Compassionate, evidence-based trauma therapy to help you process difficult experiences and reclaim your sense of safety and self."
+  },
+
+  "ABOUT_SECTION": {
+    "EYEBROW": "About Us",
+    "HEADING": "We Provide Professional, Dedicated, And Experienced Psychological Support",
+    "PARA1": "At Healingy, we believe that everyone deserves access to quality mental health care. Our team of licensed psychologists brings decades of combined experience across a full spectrum of therapeutic modalities.",
+    "PARA2": "We are committed to creating a warm, non-judgmental space where you can explore your thoughts and feelings at your own pace. Your healing journey is unique, and we walk it with you every step of the way.",
+    "SATISFACTION_LABEL": "Client Satisfaction",
+    "CTA": "Book a Session",
+    "CHECK_1": "Licensed & certified therapists",
+    "CHECK_2": "Evidence-based therapy methods",
+    "CHECK_3": "Confidential & safe environment",
+    "CHECK_4": "Flexible scheduling options"
+  },
+
+  "BENEFITS_SECTION": {
+    "EYEBROW": "Why Choose Us",
+    "HEADING": "Why Choose Healingy?",
+    "DESCRIPTION": "We combine professional expertise with genuine compassion to deliver therapy that makes a real, lasting difference in your life.",
+    "PSYCHOLOGISTS_TITLE": "Top Psychologists",
+    "PSYCHOLOGISTS_DESC": "Our team consists of certified therapists with 10+ years of experience helping clients achieve lasting mental wellness.",
+    "METHODS_TITLE": "Effective Methods",
+    "METHODS_DESC": "We use evidence-based therapeutic approaches tailored to your specific needs, goals, and personal circumstances.",
+    "SUPPORT_TITLE": "Ongoing Support",
+    "SUPPORT_DESC": "Continuous support throughout your healing journey — we are here for you between sessions and whenever you need guidance."
+  },
+
+  "STATS_SECTION": {
+    "YEARS_EXP": "Years Experience",
+    "HAPPY_CLIENTS": "Happy Clients",
+    "PROJECTS": "Projects Completed",
+    "AWARDS": "Awards Won"
+  },
+
+  "TESTIMONIALS_SECTION": {
+    "EYEBROW": "Testimonials",
+    "HEADING": "What Our Clients Are Saying",
+    "DESCRIPTION": "Real stories from real people who have experienced the Healingy difference in their mental health journey.",
+    "T1_QUOTE": "Working with my therapist at Healingy has been truly life-changing. I came in feeling overwhelmed and lost, and over the course of a few months I have developed real tools to manage my anxiety. I feel more like myself than I have in years.",
+    "T1_NAME": "Sarah Mitchell",
+    "T1_ROLE": "Individual Therapy Client",
+    "T2_QUOTE": "My husband and I were on the brink of separation when we started couples therapy here. The sessions gave us a safe space to really hear each other for the first time. We are stronger today because of this experience and couldn't be more grateful.",
+    "T2_NAME": "James & Rachel Torres",
+    "T2_ROLE": "Couples Therapy Clients",
+    "T3_QUOTE": "After struggling for years with childhood trauma, I finally found a therapist who made me feel seen and understood. The trauma counseling program at Healingy gave me my confidence back. I highly recommend this practice to anyone seeking real healing.",
+    "T3_NAME": "Amara Kowalski",
+    "T3_ROLE": "Trauma Counseling Client"
+  },
+
+  "BLOG_SECTION": {
+    "EYEBROW": "Blog & Resources",
+    "HEADING": "Healingy Blog & Resources",
+    "VIEW_ALL": "View All Articles →",
+    "READ_MORE": "Read More →",
+    "A1_DATE": "15 Mar",
+    "A1_CATEGORY": "Therapy",
+    "A1_TITLE": "How Cognitive Behavioral Therapy Can Help Manage Anxiety",
+    "A1_EXCERPT": "Discover how CBT techniques empower you to identify and reframe negative thought patterns, reducing anxiety in everyday situations.",
+    "A1_CONTENT": "Cognitive Behavioral Therapy (CBT) is one of the most well-researched treatments for anxiety. It works by helping you identify negative thought patterns and replace them with healthier, more balanced perspectives. Over time, this practice rewires how your brain responds to stress and uncertainty.\n\nA trained therapist guides you through a structured process of examining your thoughts, understanding how they affect your feelings and behavior, and developing practical coping strategies. Techniques may include journaling, breathing exercises, and gradual exposure to feared situations in a safe environment.\n\nMany clients experience meaningful improvement within 8 to 20 sessions. Whether you struggle with social anxiety, generalized worry, or panic attacks, CBT offers evidence-backed tools that you can use long after therapy ends.",
+    "A2_DATE": "10 Mar",
+    "A2_CATEGORY": "Wellness",
+    "A2_TITLE": "Understanding the Connection Between Sleep and Mental Health",
+    "A2_EXCERPT": "Explore the powerful two-way relationship between quality sleep and emotional resilience, and learn practical steps to improve both.",
+    "A2_CONTENT": "The connection between sleep and mental health runs in both directions. When we sleep poorly, our emotional regulation suffers, making us more reactive to stress and less able to find perspective. When we are struggling with anxiety or depression, sleep often becomes disrupted, creating a cycle that can feel impossible to break.\n\nResearch consistently shows that adults who sleep 7 to 9 hours per night have significantly better mental health outcomes. During sleep, the brain consolidates memories, processes emotions, and clears metabolic waste that accumulates during waking hours. Prioritizing sleep is one of the most powerful investments you can make in your psychological well-being.\n\nPractical steps include maintaining a consistent sleep schedule, limiting caffeine after midday, reducing screen exposure in the hour before bed, and creating a calming bedtime routine. If sleep difficulties persist despite good habits, speaking with a therapist can help identify and address underlying anxiety or other contributing factors.",
+    "A3_DATE": "05 Mar",
+    "A3_CATEGORY": "Mindfulness",
+    "A3_TITLE": "5 Mindfulness Practices for Daily Stress Relief",
+    "A3_EXCERPT": "Simple, evidence-backed mindfulness exercises you can integrate into your daily routine to reduce stress and improve overall well-being.",
+    "A3_CONTENT": "Mindfulness practice does not require you to empty your mind or achieve a state of perfect calm. It simply asks you to pay attention to the present moment, intentionally and without judgment. Even a few minutes a day of consistent practice can produce measurable reductions in stress, improved focus, and greater emotional resilience.\n\nHere are five practices to get you started. Mindful breathing: set a timer for five minutes each morning and bring your full attention to the sensations of breathing. Mindful walking: during your next walk, feel each step, notice sounds, and observe your surroundings without labeling them good or bad. Body scan: lie down, close your eyes, and slowly move your awareness through each part of your body, releasing tension as you go. Gratitude journaling: each evening, write three specific things you appreciated about your day. Mindful eating: at one meal each day, put away all devices, eat slowly, and fully savor each bite.\n\nStart with just one practice for two weeks. Small, consistent effort builds the mindfulness habit more reliably than occasional long sessions."
+  },
+
+  "BLOG_LIST": {
+    "DESCRIPTION": "Explore our latest articles, tips, and resources on mental health and well-being."
+  },
+
+  "BLOG_DETAIL": {
+    "BACK_TO_BLOG": "Back to Blog",
+    "READ_TIME": "5 min read"
+  },
+
+  "YOUTUBE_VIEWER": {
+    "EYEBROW": "Favourite Topics",
+    "HEADING": "Healingy Blog & Resources",
+    "SUBHEADING": "Your go-to source for mental health insights, tools, and advice.",
+    "SHORTS": "Shorts"
+  },
+
+  "BOOK_CONSULTATION_MODAL": {
+    "TITLE": "Book a Consultation",
+    "DESCRIPTION": "Fill in the details below and we'll confirm your appointment within 24 hours.",
+    "FULL_NAME": "Full Name",
+    "PHONE": "Phone",
+    "EMAIL": "Email",
+    "SERVICE": "Service",
+    "SERVICE_PLACEHOLDER": "Select a service",
+    "DATE": "Preferred Date",
+    "MESSAGE": "Message",
+    "NAME_PLACEHOLDER": "Jane Smith",
+    "PHONE_PLACEHOLDER": "1-555-000-0000",
+    "EMAIL_PLACEHOLDER": "jane@example.com",
+    "MESSAGE_PLACEHOLDER": "Tell us a bit about what you're looking for...",
+    "SUBMIT": "Request Appointment",
+    "SUCCESS_TITLE": "Consultation Request Sent!",
+    "SUCCESS_MESSAGE": "Thank you, {name}. We'll contact you within 24 hours to confirm your appointment.",
+    "CLOSE": "Close",
+    "SERVICE_INDIVIDUAL": "Individual Counseling",
+    "SERVICE_FAMILY": "Family Therapy",
+    "SERVICE_COUPLES": "Couples Therapy",
+    "SERVICE_GROUP": "Group Therapy",
+    "SERVICE_CHILD": "Child & Adolescent Therapy",
+    "SERVICE_TRAUMA": "Trauma Counseling"
+  },
+
+  "FOOTER": {
+    "DESCRIPTION": "Professional psychological support for individuals, couples, and families. Your healing journey starts here.",
+    "SERVICES_HEADING": "Services",
+    "QUICK_LINKS_HEADING": "Quick Links",
+    "NEWSLETTER_HEADING": "Newsletter",
+    "NEWSLETTER_DESCRIPTION": "Stay updated with our latest articles, tips, and resources on mental health and well-being.",
+    "EMAIL_PLACEHOLDER": "Your email address",
+    "SUBSCRIBE": "Subscribe",
+    "COPYRIGHT": "© 2026 Healingy. All rights reserved.",
+    "PRIVACY_POLICY": "Privacy Policy",
+    "TERMS": "Terms of Service",
+    "LINK_HOME": "Home",
+    "LINK_ABOUT": "About Us",
+    "LINK_BLOG": "Blog",
+    "LINK_CONTACT": "Contact",
+    "LINK_BOOK": "Book Appointment",
+    "SERVICE_INDIVIDUAL": "Individual Counseling",
+    "SERVICE_FAMILY": "Family Therapy",
+    "SERVICE_COUPLES": "Couples Therapy",
+    "SERVICE_GROUP": "Group Therapy",
+    "SERVICE_CHILD": "Child Therapy",
+    "SERVICE_TRAUMA": "Trauma Counseling"
+  },
+
+  "BOOK_CONSULTATION": {
+    "HEADER": "Book a Consultation",
+    "MAIN": "Take The First Step Towards A Better Life",
+    "DESCRIPTION": "Our licensed psychologists are ready to listen. Fill in the form and we'll reach out within 24 hours to confirm your free initial consultation.",
+    "NAME_INPUT": "Your Full Name",
+    "EMAIL_INPUT": "Your Email Address",
+    "PHONE_INPUT": "Your Phone Number",
+    "MESSAGE_INPUT": "Tell us what you're looking for…",
+    "SUBMIT": "Submit",
+    "SUBMITTING": "Sending…",
+    "SUCCESS": "✓ Message sent!",
+    "ERROR": "Something went wrong. Please try again.",
+    "CARD_TITLE": "Get A Free Consultation"
+  }
+}
