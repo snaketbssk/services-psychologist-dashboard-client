@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(grep -i \"book\\\\|consultation\\\\|free\" /c/Users/snake/source/repos/service-psy/services-psychologist-dashboard-client/messages/*.json)",
+      "Bash(xargs grep:*)"
+    ]
+  }
+}

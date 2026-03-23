@@ -328,7 +328,7 @@ function BlogTranslationFormDialog({
           value={content}
           onChange={(e) => setContent(e.target.value)}
           placeholder="Full blog content…"
-          rows={6}
+          rows={16}
           className={textareaClass}
         />
       </div>
