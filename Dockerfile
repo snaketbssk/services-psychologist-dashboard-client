@@ -12,7 +12,7 @@ WORKDIR /app
 # Declare build-time argument and expose it as an env var so Next.js
 # can inline NEXT_PUBLIC_* values during "next build"
 ARG NEXT_PUBLIC_DASHBOARD_API_URL
-ENV NEXT_PUBLIC_DASHBOARD_API_URL=$NEXT_PUBLIC_DASHBOARD_API_URL
+ENV NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_DASHBOARD_API_URL
 
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
