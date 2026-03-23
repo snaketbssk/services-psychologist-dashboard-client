@@ -26,6 +26,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { RichTextEditor } from "@/components/ui/rich-text-editor";
 import { PlusIcon, PencilIcon, Trash2Icon, LanguagesIcon } from "lucide-react";
 
 const inputClass =
@@ -320,16 +321,12 @@ function BlogTranslationFormDialog({
       </div>
 
       <div className="flex flex-col gap-1.5">
-        <label htmlFor="trans-content" className="text-sm font-medium">
-          Content
-        </label>
-        <textarea
-          id="trans-content"
+        <label className="text-sm font-medium">Content</label>
+        <RichTextEditor
           value={content}
-          onChange={(e) => setContent(e.target.value)}
+          onChange={setContent}
           placeholder="Full blog content…"
-          rows={16}
-          className={textareaClass}
+          disabled={isPending}
         />
       </div>
 
