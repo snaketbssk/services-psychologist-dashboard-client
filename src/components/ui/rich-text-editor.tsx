@@ -161,15 +161,16 @@ export function RichTextEditor({
     },
     onCreate: ({ editor }) => {
       if (value && editor.getHTML() !== value) {
-        editor.commands.setContent(value, false);
+        editor.commands.setContent(value, { emitUpdate: false });
       }
     },
   });
 
   if (!editor) return null;
+  const e = editor!;
 
-  const currentLinkHref = editor.getAttributes("link").href ?? "";
-  const isLinkActive = editor.isActive("link");
+  const currentLinkHref = e.getAttributes("link").href ?? "";
+  const isLinkActive = e.isActive("link");
 
   function openLinkPanel() {
     setActivePanel((p) => (p === "link" ? null : "link"));
@@ -177,16 +178,16 @@ export function RichTextEditor({
 
   function confirmLink(url: string) {
     if (!url) {
-      editor.chain().focus().unsetLink().run();
+      e.chain().focus().unsetLink().run();
     } else {
-      editor.chain().focus().setLink({ href: url }).run();
+      e.chain().focus().setLink({ href: url }).run();
     }
     setActivePanel(null);
   }
 
   function confirmImage(url: string) {
     if (url) {
-      editor.chain().focus().setImage({ src: url }).run();
+      e.chain().focus().setImage({ src: url }).run();
     }
     setActivePanel(null);
   }
@@ -203,15 +204,15 @@ export function RichTextEditor({
       {/* ── Toolbar ── */}
       <div className="flex flex-wrap items-center gap-0.5 border-b border-border px-2 py-1.5">
         <ToolbarButton
-          onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
-          active={editor.isActive("heading", { level: 2 })}
+          onClick={() => e.chain().focus().toggleHeading({ level: 2 }).run()}
+          active={e.isActive("heading", { level: 2 })}
           title="Heading 2"
         >
           <Heading2Icon className="size-3.5" />
         </ToolbarButton>
         <ToolbarButton
-          onClick={() => editor.chain().focus().toggleHeading({ level: 3 }).run()}
-          active={editor.isActive("heading", { level: 3 })}
+          onClick={() => e.chain().focus().toggleHeading({ level: 3 }).run()}
+          active={e.isActive("heading", { level: 3 })}
           title="Heading 3"
         >
           <Heading3Icon className="size-3.5" />
@@ -220,15 +221,15 @@ export function RichTextEditor({
         <Divider />
 
         <ToolbarButton
-          onClick={() => editor.chain().focus().toggleBold().run()}
-          active={editor.isActive("bold")}
+          onClick={() => e.chain().focus().toggleBold().run()}
+          active={e.isActive("bold")}
           title="Bold"
         >
           <BoldIcon className="size-3.5" />
         </ToolbarButton>
         <ToolbarButton
-          onClick={() => editor.chain().focus().toggleItalic().run()}
-          active={editor.isActive("italic")}
+          onClick={() => e.chain().focus().toggleItalic().run()}
+          active={e.isActive("italic")}
           title="Italic"
         >
           <ItalicIcon className="size-3.5" />
@@ -237,22 +238,22 @@ export function RichTextEditor({
         <Divider />
 
         <ToolbarButton
-          onClick={() => editor.chain().focus().toggleBulletList().run()}
-          active={editor.isActive("bulletList")}
+          onClick={() => e.chain().focus().toggleBulletList().run()}
+          active={e.isActive("bulletList")}
           title="Bullet list"
         >
           <ListIcon className="size-3.5" />
         </ToolbarButton>
         <ToolbarButton
-          onClick={() => editor.chain().focus().toggleOrderedList().run()}
-          active={editor.isActive("orderedList")}
+          onClick={() => e.chain().focus().toggleOrderedList().run()}
+          active={e.isActive("orderedList")}
           title="Ordered list"
         >
           <ListOrderedIcon className="size-3.5" />
         </ToolbarButton>
         <ToolbarButton
-          onClick={() => editor.chain().focus().toggleBlockquote().run()}
-          active={editor.isActive("blockquote")}
+          onClick={() => e.chain().focus().toggleBlockquote().run()}
+          active={e.isActive("blockquote")}
           title="Blockquote"
         >
           <QuoteIcon className="size-3.5" />
@@ -261,7 +262,7 @@ export function RichTextEditor({
         <Divider />
 
         <ToolbarButton
-          onClick={() => editor.chain().focus().setHorizontalRule().run()}
+          onClick={() => e.chain().focus().setHorizontalRule().run()}
           title="Horizontal rule"
         >
           <SeparatorHorizontalIcon className="size-3.5" />
@@ -279,7 +280,7 @@ export function RichTextEditor({
         </ToolbarButton>
         {isLinkActive && (
           <ToolbarButton
-            onClick={() => { editor.chain().focus().unsetLink().run(); setActivePanel(null); }}
+            onClick={() => { e.chain().focus().unsetLink().run(); setActivePanel(null); }}
             title="Remove link"
           >
             <Link2OffIcon className="size-3.5" />
@@ -298,15 +299,15 @@ export function RichTextEditor({
         <Divider />
 
         <ToolbarButton
-          onClick={() => editor.chain().focus().undo().run()}
-          disabled={!editor.can().undo()}
+          onClick={() => e.chain().focus().undo().run()}
+          disabled={!e.can().undo()}
           title="Undo"
         >
           <Undo2Icon className="size-3.5" />
         </ToolbarButton>
         <ToolbarButton
-          onClick={() => editor.chain().focus().redo().run()}
-          disabled={!editor.can().redo()}
+          onClick={() => e.chain().focus().redo().run()}
+          disabled={!e.can().redo()}
           title="Redo"
         >
           <Redo2Icon className="size-3.5" />
