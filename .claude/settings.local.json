@@ -35,7 +35,29 @@
       "mcp__playwright__browser_take_screenshot",
       "Bash(git add:*)",
       "Bash(git commit:*)",
-      "Bash(git push:*)"
+      "Bash(git push:*)",
+      "Bash(xxd \"C:/Users/snake/source/repos/service-psy/services-psychologist-dashboard-client/src/app/[locale]/videos/page.tsx\")",
+      "Bash(mkdir -p \"C:/Users/snake/source/repos/service-psy/services-psychologist-dashboard-client/src/app/[locale]/blogs/create\")",
+      "Bash(mkdir -p \"C:/Users/snake/source/repos/service-psy/services-psychologist-dashboard-client/src/app/[locale]/blogs/[id]/edit\")",
+      "Bash(mkdir -p \"C:/Users/snake/source/repos/service-psy/services-psychologist-dashboard-client/src/app/[locale]/videos/create\")",
+      "Bash(mkdir -p \"C:/Users/snake/source/repos/service-psy/services-psychologist-dashboard-client/src/app/[locale]/videos/[id]/edit\")",
+      "Bash(mkdir -p \"C:/Users/snake/source/repos/service-psy/services-psychologist-dashboard-client/src/app/[locale]/categories/create\")",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" \"https://snaketbs.com/api/psychologist-dashboard/videos/019d15b2-3823-75a2-95fc-0873b9b65369\" -H \"X-Language: en\")",
+      "Bash(curl -s -w \"\\\\n%{http_code}\" \"https://snaketbs.com/api/psychologist-dashboard/videos/019d15b2-3823-75a2-95fc-0873b9b65369\" -H \"X-Language: en\")",
+      "Bash(curl -s -w \"\\\\n%{http_code}\" \"https://snaketbs.com/api/psychologist-dashboard/blogs/019d15b2-15b0-787d-bc9b-01e60519bd0c\" -H \"X-Language: en\")",
+      "Bash(curl -s -w \"\\\\n%{http_code}\" \"https://snaketbs.com/api/psychologist-dashboard/languages/019d15b0-979d-7377-87c2-d62eeb0d3990\" -H \"X-Language: en\")",
+      "Bash(curl -s -w \"\\\\n%{http_code}\" \"https://snaketbs.com/api/psychologist-dashboard/categories/019d15b2-0a12-7a2f-8e5d-6042322e711f\" -H \"X-Language: en\")",
+      "Bash(curl -s -w \"\\\\n%{http_code}\" \"https://snaketbs.com/api/psychologist-dashboard/videos?PageSize=1&PageNumber=1\" -H \"X-Language: en\")",
+      "Bash(curl -s -w \"\\\\n%{http_code}\" \"https://snaketbs.com/api/psychologist-dashboard/languages?PageSize=100\" -H \"X-Language: en\")",
+      "Bash(curl -s -w \"\\\\n%{http_code}\" \"https://snaketbs.com/api/psychologist-dashboard/video-translations?VideoId=019d15b2-3823-75a2-95fc-0873b9b65369&PageSize=100\" -H \"X-Language: en\")",
+      "Bash(node -e \"const pkg = require\\(''./node_modules/@base-ui/react/package.json''\\); console.log\\(pkg.version\\)\")",
+      "Bash(node -e \":*)",
+      "Bash(curl -s -w \"\\\\n%{http_code}\" \"https://snaketbs.com/api/psychologist-dashboard/videos?Id=019d15b2-3823-75a2-95fc-0873b9b65369&PageSize=1\" -H \"X-Language: en\")",
+      "Bash(curl -s -w \"\\\\n%{http_code}\" \"https://snaketbs.com/api/psychologist-dashboard/languages?Id=019d15b0-979d-7377-87c2-d62eeb0d3990&PageSize=1\" -H \"X-Language: en\")",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:3000)",
+      "mcp__playwright__browser_install",
+      "mcp__playwright__browser_evaluate",
+      "mcp__playwright__browser_resize"
     ]
   }
 }
