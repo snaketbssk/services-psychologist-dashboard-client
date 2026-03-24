@@ -11,7 +11,7 @@ export interface ILanguageDto {
 
 export interface IPagedLanguages {
   totalCount: number;
-  values: ILanguageDto[];
+  values: ILanguageDto[] | null;
 }
 
 export interface ILanguagesFilter {

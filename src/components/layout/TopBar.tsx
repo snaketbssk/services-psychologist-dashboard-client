@@ -14,12 +14,31 @@ const PAGE_TITLES: Record<string, string> = {
   languages: "Languages",
 };
 
+const SINGULAR: Record<string, string> = {
+  blogs: "Blog",
+  videos: "Video",
+  categories: "Category",
+  languages: "Language",
+};
+
 export default function TopBar({ onMenuToggle }: TopBarProps) {
   const pathname = usePathname();
   const segments = pathname.split("/").filter(Boolean);
-  // segments[0] = locale, segments[1] = page slug
-  const pageKey = segments[1];
-  const pageTitle = pageKey ? (PAGE_TITLES[pageKey] ?? pageKey) : "Dashboard";
+  // segments[0] = locale, segments[1] = resource, segments[2] = 'create' | id, segments[3] = 'edit'
+  const resourceKey = segments[1];
+  const sub = segments[2];
+  const action = segments[3];
+
+  let pageTitle = "Dashboard";
+  if (resourceKey) {
+    if (sub === "create") {
+      pageTitle = `Create ${SINGULAR[resourceKey] ?? resourceKey}`;
+    } else if (action === "edit") {
+      pageTitle = `Edit ${SINGULAR[resourceKey] ?? resourceKey}`;
+    } else {
+      pageTitle = PAGE_TITLES[resourceKey] ?? resourceKey;
+    }
+  }
 
   return (
     <header className="sticky top-0 z-30 flex items-center h-16 px-4 gap-3 bg-card border-b border-border shadow-sm shrink-0">

@@ -2,10 +2,10 @@
 
 import { useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { usePathname } from "next/navigation";
+import Link from "next/link";
 import {
   getLanguages,
-  createLanguage,
-  updateLanguage,
   deleteLanguage,
   setDefaultLanguage,
   type ILanguageDto,
@@ -22,78 +22,6 @@ import {
 } from "@/components/ui/dialog";
 import { PlusIcon, PencilIcon, Trash2Icon, StarIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
-
-// ─── Language Form Dialog ──────────────────────────────────────────────────────
-
-function LanguageFormDialog({
-  language,
-  onClose,
-}: {
-  language?: ILanguageDto;
-  onClose: () => void;
-}) {
-  const [code, setCode] = useState(language?.code ?? "");
-  const queryClient = useQueryClient();
-
-  const createMutation = useMutation({
-    mutationFn: () => createLanguage({ code: code || null }),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["languages"] });
-      onClose();
-    },
-  });
-
-  const updateMutation = useMutation({
-    mutationFn: () => updateLanguage(language!.id, { code: code || null }),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["languages"] });
-      onClose();
-    },
-  });
-
-  const isPending = createMutation.isPending || updateMutation.isPending;
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (language) {
-      updateMutation.mutate();
-    } else {
-      createMutation.mutate();
-    }
-  };
-
-  const error = createMutation.error || updateMutation.error;
-
-  return (
-    <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-      <div className="flex flex-col gap-1.5">
-        <label htmlFor="code" className="text-sm font-medium">
-          Language Code
-        </label>
-        <input
-          id="code"
-          type="text"
-          value={code}
-          onChange={(e) => setCode(e.target.value)}
-          placeholder="e.g. en, ru, am"
-          className="h-8 rounded-lg border border-border bg-background px-3 text-sm outline-none ring-0 focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50"
-        />
-      </div>
-
-      {error && (
-        <p className="text-sm text-destructive">
-          {(error as Error).message ?? "An error occurred."}
-        </p>
-      )}
-
-      <DialogFooter showCloseButton>
-        <Button type="submit" disabled={isPending}>
-          {isPending ? "Saving…" : language ? "Save Changes" : "Create"}
-        </Button>
-      </DialogFooter>
-    </form>
-  );
-}
 
 // ─── Delete Confirm Dialog ─────────────────────────────────────────────────────
 
@@ -143,9 +71,14 @@ function DeleteConfirmDialog({
 
 // ─── Language Row ──────────────────────────────────────────────────────────────
 
-function LanguageRow({ language }: { language: ILanguageDto }) {
+function LanguageRow({
+  language,
+  locale,
+}: {
+  language: ILanguageDto;
+  locale: string;
+}) {
   const queryClient = useQueryClient();
-  const [editOpen, setEditOpen] = useState(false);
   const [deleteOpen, setDeleteOpen] = useState(false);
 
   const setDefaultMutation = useMutation({
@@ -188,25 +121,14 @@ function LanguageRow({ language }: { language: ILanguageDto }) {
             </Button>
           )}
 
-          <Dialog open={editOpen} onOpenChange={setEditOpen}>
-            <DialogTrigger
-              render={
-                <Button variant="ghost" size="icon-sm" title="Edit language" />
-              }
-            >
-              <PencilIcon className="size-4" />
-              <span className="sr-only">Edit</span>
-            </DialogTrigger>
-            <DialogContent>
-              <DialogHeader>
-                <DialogTitle>Edit Language</DialogTitle>
-              </DialogHeader>
-              <LanguageFormDialog
-                language={language}
-                onClose={() => setEditOpen(false)}
-              />
-            </DialogContent>
-          </Dialog>
+          <Link
+            href={`/${locale}/languages/${language.id}/edit`}
+            className="inline-flex items-center justify-center rounded-md w-7 h-7 text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
+            title="Edit"
+          >
+            <PencilIcon className="size-4" />
+            <span className="sr-only">Edit</span>
+          </Link>
 
           <Dialog open={deleteOpen} onOpenChange={setDeleteOpen}>
             <DialogTrigger
@@ -240,9 +162,10 @@ function LanguageRow({ language }: { language: ILanguageDto }) {
 // ─── Main Client Component ─────────────────────────────────────────────────────
 
 export default function LanguagesClient() {
-  const [createOpen, setCreateOpen] = useState(false);
   const [page, setPage] = useState(1);
   const pageSize = 20;
+  const pathname = usePathname();
+  const locale = pathname.split("/")[1];
 
   const { data, isLoading, isError } = useQuery({
     queryKey: ["languages", page],
@@ -261,18 +184,10 @@ export default function LanguagesClient() {
       <CardHeader className="border-b">
         <CardTitle>Languages</CardTitle>
         <div className="col-start-2 row-span-2 row-start-1 self-start justify-self-end">
-          <Dialog open={createOpen} onOpenChange={setCreateOpen}>
-            <DialogTrigger render={<Button size="sm" />}>
-              <PlusIcon className="size-4" />
-              Add Language
-            </DialogTrigger>
-            <DialogContent>
-              <DialogHeader>
-                <DialogTitle>Add Language</DialogTitle>
-              </DialogHeader>
-              <LanguageFormDialog onClose={() => setCreateOpen(false)} />
-            </DialogContent>
-          </Dialog>
+          <Button size="sm" render={<Link href={`/${locale}/languages/create`} />}>
+            <PlusIcon className="size-4" />
+            <span className="hidden sm:inline">Add Language</span>
+          </Button>
         </div>
       </CardHeader>
 
@@ -294,6 +209,7 @@ export default function LanguagesClient() {
         )}
 
         {languages.length > 0 && (
+          <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
               <tr className="border-b border-border bg-muted/30">
@@ -310,10 +226,11 @@ export default function LanguagesClient() {
             </thead>
             <tbody>
               {languages.map((lang) => (
-                <LanguageRow key={lang.id} language={lang} />
+                <LanguageRow key={lang.id} language={lang} locale={locale} />
               ))}
             </tbody>
           </table>
+          </div>
         )}
 
         {totalPages > 1 && (

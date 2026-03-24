@@ -85,6 +85,12 @@ export const getVideos = (
 ): Promise<AxiosResponse<IPagedVideos>> =>
   apiClient.get("videos", params, cancelToken);
 
+export const getVideoById = (
+  id: string,
+  cancelToken?: CancelToken
+): Promise<AxiosResponse<IVideoDetailDto>> =>
+  apiClient.get(`videos/${id}`, undefined, cancelToken);
+
 export const createVideo = (
   data: ICreateVideoRequest,
   cancelToken?: CancelToken
