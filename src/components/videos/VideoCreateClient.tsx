@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter, usePathname } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { createVideo } from "@/lib/service-videos";
 import { getCategories } from "@/lib/service-categories";
@@ -17,6 +18,7 @@ export default function VideoCreateClient() {
   const router = useRouter();
   const pathname = usePathname();
   const locale = pathname.split("/")[1];
+  const t = useTranslations("DASHBOARD");
 
   const [internalName, setInternalName] = useState("");
   const [referenceId, setReferenceId] = useState("");
@@ -52,18 +54,18 @@ export default function VideoCreateClient() {
   return (
     <Card className="max-w-xl">
       <CardHeader className="border-b">
-        <CardTitle>Create Video</CardTitle>
+        <CardTitle>{t("CREATE_VIDEO")}</CardTitle>
       </CardHeader>
       <CardContent className="p-0">
         <Tabs defaultValue="details">
           <TabsList>
-            <TabsTrigger value="details">Details</TabsTrigger>
+            <TabsTrigger value="details">{t("DETAILS")}</TabsTrigger>
           </TabsList>
           <TabsContent value="details" className="px-4 py-5 sm:px-6 sm:py-6">
             <form onSubmit={handleSubmit} className="flex flex-col gap-4">
               <div className="flex flex-col gap-1.5">
                 <label htmlFor="internalName" className="text-sm font-medium">
-                  Internal Name
+                  {t("INTERNAL_NAME")}
                 </label>
                 <input
                   id="internalName"
@@ -77,7 +79,7 @@ export default function VideoCreateClient() {
 
               <div className="flex flex-col gap-1.5">
                 <label htmlFor="referenceId" className="text-sm font-medium">
-                  Reference ID
+                  {t("REFERENCE_ID")}
                 </label>
                 <input
                   id="referenceId"
@@ -91,7 +93,7 @@ export default function VideoCreateClient() {
 
               <div className="flex flex-col gap-1.5">
                 <label htmlFor="categoryId" className="text-sm font-medium">
-                  Category
+                  {t("CATEGORY")}
                 </label>
                 <select
                   id="categoryId"
@@ -99,7 +101,7 @@ export default function VideoCreateClient() {
                   onChange={(e) => setCategoryId(e.target.value)}
                   className={inputClass}
                 >
-                  <option value="">— Select category —</option>
+                  <option value="">{t("SELECT_CATEGORY")}</option>
                   {categories.map((cat) => (
                     <option key={cat.id} value={cat.id}>
                       {cat.internalName}
@@ -116,10 +118,10 @@ export default function VideoCreateClient() {
 
               <div className="flex items-center gap-2 pt-2">
                 <Button type="submit" disabled={createMutation.isPending}>
-                  {createMutation.isPending ? "Creating…" : "Create Video"}
+                  {createMutation.isPending ? t("CREATING") : t("CREATE_VIDEO")}
                 </Button>
                 <Button variant="outline" render={<Link href={`/${locale}/videos`} />}>
-                  Cancel
+                  {t("CANCEL")}
                 </Button>
               </div>
             </form>

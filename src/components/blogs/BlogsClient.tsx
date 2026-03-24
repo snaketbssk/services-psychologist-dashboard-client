@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { usePathname } from "next/navigation";
+import { useTranslations } from "next-intl";
 import Link from "next/link";
 import {
   getBlogs,
@@ -31,6 +32,7 @@ function BlogDeleteDialog({
   onClose: () => void;
 }) {
   const queryClient = useQueryClient();
+  const t = useTranslations("DASHBOARD");
 
   const deleteMutation = useMutation({
     mutationFn: () => deleteBlog(blog.id),
@@ -43,9 +45,9 @@ function BlogDeleteDialog({
   return (
     <div className="flex flex-col gap-4">
       <p className="text-sm text-muted-foreground">
-        Are you sure you want to delete{" "}
+        {t("CONFIRM_DELETE_PREFIX")}{" "}
         <span className="font-medium text-foreground">{blog.internalName}</span>
-        ? This action cannot be undone.
+        {t("CONFIRM_DELETE_SUFFIX")}
       </p>
 
       {deleteMutation.error && (
@@ -60,7 +62,7 @@ function BlogDeleteDialog({
           onClick={() => deleteMutation.mutate()}
           disabled={deleteMutation.isPending}
         >
-          {deleteMutation.isPending ? "Deleting…" : "Delete"}
+          {deleteMutation.isPending ? t("DELETING") : t("DELETE")}
         </Button>
       </DialogFooter>
     </div>
@@ -71,6 +73,7 @@ function BlogDeleteDialog({
 
 function BlogRow({ blog, locale }: { blog: IBlogShortDto; locale: string }) {
   const [deleteOpen, setDeleteOpen] = useState(false);
+  const t = useTranslations("DASHBOARD");
 
   return (
     <tr className="border-b border-border last:border-0">
@@ -105,7 +108,7 @@ function BlogRow({ blog, locale }: { blog: IBlogShortDto; locale: string }) {
             </DialogTrigger>
             <DialogContent>
               <DialogHeader>
-                <DialogTitle>Delete Blog</DialogTitle>
+                <DialogTitle>{t("DELETE_BLOG")}</DialogTitle>
               </DialogHeader>
               <BlogDeleteDialog
                 blog={blog}
@@ -126,6 +129,7 @@ export default function BlogsClient() {
   const pageSize = 20;
   const pathname = usePathname();
   const locale = pathname.split("/")[1];
+  const t = useTranslations("DASHBOARD");
 
   const { data, isLoading, isError } = useQuery({
     queryKey: ["blogs", page],
@@ -140,29 +144,29 @@ export default function BlogsClient() {
   return (
     <Card>
       <CardHeader className="border-b">
-        <CardTitle>Blogs</CardTitle>
+        <CardTitle>{t("BLOGS")}</CardTitle>
         <div className="col-start-2 row-span-2 row-start-1 self-start justify-self-end">
           <Button size="sm" render={<Link href={`/${locale}/blogs/create`} />}>
             <PlusIcon className="size-4" />
-            <span className="hidden sm:inline">Add Blog</span>
+            <span className="hidden sm:inline">{t("ADD_BLOG")}</span>
           </Button>
         </div>
       </CardHeader>
 
       <CardContent className="p-0">
         {isLoading && (
-          <p className="px-4 py-6 text-sm text-muted-foreground">Loading…</p>
+          <p className="px-4 py-6 text-sm text-muted-foreground">{t("LOADING")}</p>
         )}
 
         {isError && (
           <p className="px-4 py-6 text-sm text-destructive">
-            Failed to load blogs.
+            {t("FAILED_LOAD_BLOGS")}
           </p>
         )}
 
         {!isLoading && !isError && blogs.length === 0 && (
           <p className="px-4 py-6 text-sm text-muted-foreground">
-            No blogs found.
+            {t("NO_BLOGS")}
           </p>
         )}
 
@@ -172,16 +176,16 @@ export default function BlogsClient() {
               <thead>
                 <tr className="border-b border-border bg-muted/30">
                   <th className="py-2.5 pl-4 pr-2 text-left text-xs font-medium text-muted-foreground">
-                    Internal Name
+                    {t("INTERNAL_NAME")}
                   </th>
                   <th className="py-2.5 px-2 text-left text-xs font-medium text-muted-foreground">
-                    Title
+                    {t("TITLE")}
                   </th>
                   <th className="hidden sm:table-cell py-2.5 px-2 text-left text-xs font-medium text-muted-foreground">
-                    Date
+                    {t("DATE")}
                   </th>
                   <th className="py-2.5 pl-2 pr-4 text-right text-xs font-medium text-muted-foreground">
-                    Actions
+                    {t("ACTIONS")}
                   </th>
                 </tr>
               </thead>
@@ -206,7 +210,7 @@ export default function BlogsClient() {
                 onClick={() => setPage((p) => Math.max(1, p - 1))}
                 disabled={page === 1}
               >
-                Previous
+                {t("PREVIOUS")}
               </Button>
               <span className="px-2 text-xs text-muted-foreground">
                 {page} / {totalPages}
@@ -217,7 +221,7 @@ export default function BlogsClient() {
                 onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
                 disabled={page === totalPages}
               >
-                Next
+                {t("NEXT")}
               </Button>
             </div>
           </div>

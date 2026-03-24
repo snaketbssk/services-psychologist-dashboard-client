@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter, usePathname } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createLanguage } from "@/lib/service-languages";
 import { Button } from "@/components/ui/button";
@@ -16,6 +17,7 @@ export default function LanguageCreateClient() {
   const router = useRouter();
   const pathname = usePathname();
   const locale = pathname.split("/")[1];
+  const t = useTranslations("DASHBOARD");
 
   const [code, setCode] = useState("");
 
@@ -37,18 +39,18 @@ export default function LanguageCreateClient() {
   return (
     <Card className="max-w-xl">
       <CardHeader className="border-b">
-        <CardTitle>Create Language</CardTitle>
+        <CardTitle>{t("CREATE_LANGUAGE")}</CardTitle>
       </CardHeader>
       <CardContent className="p-0">
         <Tabs defaultValue="details">
           <TabsList>
-            <TabsTrigger value="details">Details</TabsTrigger>
+            <TabsTrigger value="details">{t("DETAILS")}</TabsTrigger>
           </TabsList>
           <TabsContent value="details" className="px-4 py-5 sm:px-6 sm:py-6">
             <form onSubmit={handleSubmit} className="flex flex-col gap-4">
               <div className="flex flex-col gap-1.5">
                 <label htmlFor="code" className="text-sm font-medium">
-                  Language Code
+                  {t("LANGUAGE_CODE")}
                 </label>
                 <input
                   id="code"
@@ -68,10 +70,10 @@ export default function LanguageCreateClient() {
 
               <div className="flex items-center gap-2 pt-2">
                 <Button type="submit" disabled={createMutation.isPending}>
-                  {createMutation.isPending ? "Creating…" : "Create Language"}
+                  {createMutation.isPending ? t("CREATING") : t("CREATE_LANGUAGE")}
                 </Button>
                 <Button variant="outline" render={<Link href={`/${locale}/languages`} />}>
-                  Cancel
+                  {t("CANCEL")}
                 </Button>
               </div>
             </form>

@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { usePathname } from "next/navigation";
+import { useTranslations } from "next-intl";
 import Link from "next/link";
 import {
   getVideos,
@@ -31,6 +32,7 @@ function VideoDeleteDialog({
   onClose: () => void;
 }) {
   const queryClient = useQueryClient();
+  const t = useTranslations("DASHBOARD");
 
   const deleteMutation = useMutation({
     mutationFn: () => deleteVideo(video.id),
@@ -43,9 +45,9 @@ function VideoDeleteDialog({
   return (
     <div className="flex flex-col gap-4">
       <p className="text-sm text-muted-foreground">
-        Are you sure you want to delete{" "}
-        <span className="font-medium text-foreground">{video.title}</span>? This
-        action cannot be undone.
+        {t("CONFIRM_DELETE_PREFIX")}{" "}
+        <span className="font-medium text-foreground">{video.title}</span>
+        {t("CONFIRM_DELETE_SUFFIX")}
       </p>
 
       {deleteMutation.error && (
@@ -60,7 +62,7 @@ function VideoDeleteDialog({
           onClick={() => deleteMutation.mutate()}
           disabled={deleteMutation.isPending}
         >
-          {deleteMutation.isPending ? "Deleting…" : "Delete"}
+          {deleteMutation.isPending ? t("DELETING") : t("DELETE")}
         </Button>
       </DialogFooter>
     </div>
@@ -71,6 +73,7 @@ function VideoDeleteDialog({
 
 function VideoRow({ video, locale }: { video: IVideoDto; locale: string }) {
   const [deleteOpen, setDeleteOpen] = useState(false);
+  const t = useTranslations("DASHBOARD");
 
   return (
     <tr className="border-b border-border last:border-0">
@@ -107,7 +110,7 @@ function VideoRow({ video, locale }: { video: IVideoDto; locale: string }) {
             </DialogTrigger>
             <DialogContent>
               <DialogHeader>
-                <DialogTitle>Delete Video</DialogTitle>
+                <DialogTitle>{t("DELETE_VIDEO")}</DialogTitle>
               </DialogHeader>
               <VideoDeleteDialog
                 video={video}
@@ -128,6 +131,7 @@ export default function VideosClient() {
   const pageSize = 20;
   const pathname = usePathname();
   const locale = pathname.split("/")[1];
+  const t = useTranslations("DASHBOARD");
 
   const { data, isLoading, isError } = useQuery({
     queryKey: ["videos", page],
@@ -142,29 +146,29 @@ export default function VideosClient() {
   return (
     <Card>
       <CardHeader className="border-b">
-        <CardTitle>Videos</CardTitle>
+        <CardTitle>{t("VIDEOS")}</CardTitle>
         <div className="col-start-2 row-span-2 row-start-1 self-start justify-self-end">
           <Button size="sm" render={<Link href={`/${locale}/videos/create`} />}>
             <PlusIcon className="size-4" />
-            <span className="hidden sm:inline">Add Video</span>
+            <span className="hidden sm:inline">{t("ADD_VIDEO")}</span>
           </Button>
         </div>
       </CardHeader>
 
       <CardContent className="p-0">
         {isLoading && (
-          <p className="px-4 py-6 text-sm text-muted-foreground">Loading…</p>
+          <p className="px-4 py-6 text-sm text-muted-foreground">{t("LOADING")}</p>
         )}
 
         {isError && (
           <p className="px-4 py-6 text-sm text-destructive">
-            Failed to load videos.
+            {t("FAILED_LOAD_VIDEOS")}
           </p>
         )}
 
         {!isLoading && !isError && videos.length === 0 && (
           <p className="px-4 py-6 text-sm text-muted-foreground">
-            No videos found.
+            {t("NO_VIDEOS")}
           </p>
         )}
 
@@ -174,16 +178,16 @@ export default function VideosClient() {
               <thead>
                 <tr className="border-b border-border bg-muted/30">
                   <th className="py-2.5 pl-4 pr-2 text-left text-xs font-medium text-muted-foreground">
-                    Title
+                    {t("TITLE")}
                   </th>
                   <th className="hidden sm:table-cell py-2.5 px-2 text-left text-xs font-medium text-muted-foreground">
-                    Video ID
+                    {t("VIDEO_ID")}
                   </th>
                   <th className="py-2.5 px-2 text-left text-xs font-medium text-muted-foreground">
-                    Category
+                    {t("CATEGORY")}
                   </th>
                   <th className="py-2.5 pl-2 pr-4 text-right text-xs font-medium text-muted-foreground">
-                    Actions
+                    {t("ACTIONS")}
                   </th>
                 </tr>
               </thead>
@@ -208,7 +212,7 @@ export default function VideosClient() {
                 onClick={() => setPage((p) => Math.max(1, p - 1))}
                 disabled={page === 1}
               >
-                Previous
+                {t("PREVIOUS")}
               </Button>
               <span className="px-2 text-xs text-muted-foreground">
                 {page} / {totalPages}
@@ -219,7 +223,7 @@ export default function VideosClient() {
                 onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
                 disabled={page === totalPages}
               >
-                Next
+                {t("NEXT")}
               </Button>
             </div>
           </div>

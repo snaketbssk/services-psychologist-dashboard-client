@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { cn } from "@/lib/utils";
 import {
   LayoutDashboard,
@@ -36,26 +37,27 @@ export default function Sidebar({
   onMobileClose,
 }: SidebarProps) {
   const pathname = usePathname();
+  const t = useTranslations("DASHBOARD");
 
   const sections: NavSection[] = [
     {
-      title: "Dashboards",
+      title: t("DASHBOARDS"),
       items: [
-        { label: "Dashboard", href: `/${locale}`, icon: LayoutDashboard },
+        { label: t("DASHBOARD"), href: `/${locale}`, icon: LayoutDashboard },
       ],
     },
     {
-      title: "Content Management",
+      title: t("CONTENT_MANAGEMENT"),
       items: [
-        { label: "Blogs", href: `/${locale}/blogs`, icon: FileText },
-        { label: "Videos", href: `/${locale}/videos`, icon: Video },
+        { label: t("BLOGS"), href: `/${locale}/blogs`, icon: FileText },
+        { label: t("VIDEOS"), href: `/${locale}/videos`, icon: Video },
       ],
     },
     {
-      title: "Settings",
+      title: t("SETTINGS"),
       items: [
-        { label: "Categories", href: `/${locale}/categories`, icon: Tag },
-        { label: "Languages", href: `/${locale}/languages`, icon: Globe2 },
+        { label: t("CATEGORIES"), href: `/${locale}/categories`, icon: Tag },
+        { label: t("LANGUAGES"), href: `/${locale}/languages`, icon: Globe2 },
       ],
     },
   ];
@@ -107,7 +109,7 @@ export default function Sidebar({
                 className="text-sm font-semibold tracking-wide truncate"
                 style={{ color: "var(--sidebar-foreground)" }}
               >
-                Psy Dashboard
+                {t("PSY_DASHBOARD")}
               </span>
             )}
           </Link>

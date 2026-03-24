@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { usePathname } from "next/navigation";
+import { useTranslations } from "next-intl";
 import Link from "next/link";
 import {
   getLanguages,
@@ -33,6 +34,7 @@ function DeleteConfirmDialog({
   onClose: () => void;
 }) {
   const queryClient = useQueryClient();
+  const t = useTranslations("DASHBOARD");
 
   const deleteMutation = useMutation({
     mutationFn: () => deleteLanguage(language.id),
@@ -45,9 +47,9 @@ function DeleteConfirmDialog({
   return (
     <div className="flex flex-col gap-4">
       <p className="text-sm text-muted-foreground">
-        Are you sure you want to delete the language{" "}
-        <span className="font-medium text-foreground">{language.code}</span>?
-        This action cannot be undone.
+        {t("CONFIRM_DELETE_LANG_PREFIX")}{" "}
+        <span className="font-medium text-foreground">{language.code}</span>
+        {t("CONFIRM_DELETE_SUFFIX")}
       </p>
 
       {deleteMutation.error && (
@@ -62,7 +64,7 @@ function DeleteConfirmDialog({
           onClick={() => deleteMutation.mutate()}
           disabled={deleteMutation.isPending}
         >
-          {deleteMutation.isPending ? "Deleting…" : "Delete"}
+          {deleteMutation.isPending ? t("DELETING") : t("DELETE")}
         </Button>
       </DialogFooter>
     </div>
@@ -80,6 +82,7 @@ function LanguageRow({
 }) {
   const queryClient = useQueryClient();
   const [deleteOpen, setDeleteOpen] = useState(false);
+  const t = useTranslations("DASHBOARD");
 
   const setDefaultMutation = useMutation({
     mutationFn: () => setDefaultLanguage(language.id),
@@ -95,7 +98,7 @@ function LanguageRow({
         {language.isDefault ? (
           <span className="inline-flex items-center gap-1 rounded-full bg-primary/10 px-2 py-0.5 text-xs font-medium text-primary">
             <StarIcon className="size-3" />
-            Default
+            {t("DEFAULT")}
           </span>
         ) : (
           <span className="text-xs text-muted-foreground">—</span>
@@ -107,7 +110,7 @@ function LanguageRow({
             <Button
               variant="ghost"
               size="icon-sm"
-              title="Set as default"
+              title={t("SET_AS_DEFAULT")}
               onClick={() => setDefaultMutation.mutate()}
               disabled={setDefaultMutation.isPending}
             >
@@ -117,7 +120,7 @@ function LanguageRow({
                   setDefaultMutation.isPending && "animate-spin"
                 )}
               />
-              <span className="sr-only">Set as default</span>
+              <span className="sr-only">{t("SET_AS_DEFAULT")}</span>
             </Button>
           )}
 
@@ -145,7 +148,7 @@ function LanguageRow({
             </DialogTrigger>
             <DialogContent>
               <DialogHeader>
-                <DialogTitle>Delete Language</DialogTitle>
+                <DialogTitle>{t("DELETE_LANGUAGE")}</DialogTitle>
               </DialogHeader>
               <DeleteConfirmDialog
                 language={language}
@@ -166,6 +169,7 @@ export default function LanguagesClient() {
   const pageSize = 20;
   const pathname = usePathname();
   const locale = pathname.split("/")[1];
+  const t = useTranslations("DASHBOARD");
 
   const { data, isLoading, isError } = useQuery({
     queryKey: ["languages", page],
@@ -182,29 +186,29 @@ export default function LanguagesClient() {
   return (
     <Card>
       <CardHeader className="border-b">
-        <CardTitle>Languages</CardTitle>
+        <CardTitle>{t("LANGUAGES")}</CardTitle>
         <div className="col-start-2 row-span-2 row-start-1 self-start justify-self-end">
           <Button size="sm" render={<Link href={`/${locale}/languages/create`} />}>
             <PlusIcon className="size-4" />
-            <span className="hidden sm:inline">Add Language</span>
+            <span className="hidden sm:inline">{t("ADD_LANGUAGE")}</span>
           </Button>
         </div>
       </CardHeader>
 
       <CardContent className="p-0">
         {isLoading && (
-          <p className="px-4 py-6 text-sm text-muted-foreground">Loading…</p>
+          <p className="px-4 py-6 text-sm text-muted-foreground">{t("LOADING")}</p>
         )}
 
         {isError && (
           <p className="px-4 py-6 text-sm text-destructive">
-            Failed to load languages.
+            {t("FAILED_LOAD_LANGUAGES")}
           </p>
         )}
 
         {!isLoading && !isError && languages.length === 0 && (
           <p className="px-4 py-6 text-sm text-muted-foreground">
-            No languages found.
+            {t("NO_LANGUAGES")}
           </p>
         )}
 
@@ -214,13 +218,13 @@ export default function LanguagesClient() {
             <thead>
               <tr className="border-b border-border bg-muted/30">
                 <th className="py-2.5 pl-4 pr-2 text-left text-xs font-medium text-muted-foreground">
-                  Code
+                  {t("CODE")}
                 </th>
                 <th className="py-2.5 px-2 text-left text-xs font-medium text-muted-foreground">
-                  Status
+                  {t("STATUS")}
                 </th>
                 <th className="py-2.5 pl-2 pr-4 text-right text-xs font-medium text-muted-foreground">
-                  Actions
+                  {t("ACTIONS")}
                 </th>
               </tr>
             </thead>
@@ -245,7 +249,7 @@ export default function LanguagesClient() {
                 onClick={() => setPage((p) => Math.max(1, p - 1))}
                 disabled={page === 1}
               >
-                Previous
+                {t("PREVIOUS")}
               </Button>
               <span className="px-2 text-xs text-muted-foreground">
                 {page} / {totalPages}
@@ -256,7 +260,7 @@ export default function LanguagesClient() {
                 onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
                 disabled={page === totalPages}
               >
-                Next
+                {t("NEXT")}
               </Button>
             </div>
           </div>

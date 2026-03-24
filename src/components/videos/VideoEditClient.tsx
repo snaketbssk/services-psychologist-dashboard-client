@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter, usePathname } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import {
   getVideoById,
@@ -48,6 +49,7 @@ function VideoTranslationFormDialog({
   languages: ILanguageDto[];
   onClose: () => void;
 }) {
+  const t = useTranslations("DASHBOARD");
   const [languageId, setLanguageId] = useState(
     translation?.languageId ?? languages[0]?.id ?? ""
   );
@@ -98,7 +100,7 @@ function VideoTranslationFormDialog({
       {!translation && (
         <div className="flex flex-col gap-1.5">
           <label htmlFor="languageId" className="text-sm font-medium">
-            Language
+            {t("LANGUAGE")}
           </label>
           <select
             id="languageId"
@@ -117,7 +119,7 @@ function VideoTranslationFormDialog({
 
       <div className="flex flex-col gap-1.5">
         <label htmlFor="trans-name" className="text-sm font-medium">
-          Name
+          {t("NAME")}
         </label>
         <input
           id="trans-name"
@@ -131,7 +133,7 @@ function VideoTranslationFormDialog({
 
       <div className="flex flex-col gap-1.5">
         <label htmlFor="trans-description" className="text-sm font-medium">
-          Description
+          {t("DESCRIPTION")}
         </label>
         <textarea
           id="trans-description"
@@ -151,7 +153,7 @@ function VideoTranslationFormDialog({
 
       <DialogFooter showCloseButton>
         <Button type="submit" disabled={isPending}>
-          {isPending ? "Saving…" : translation ? "Save Changes" : "Add"}
+          {isPending ? t("SAVING") : translation ? t("SAVE_CHANGES") : t("ADD")}
         </Button>
       </DialogFooter>
     </form>
@@ -172,6 +174,7 @@ function VideoTranslationDeleteDialog({
   onClose: () => void;
 }) {
   const queryClient = useQueryClient();
+  const t = useTranslations("DASHBOARD");
 
   const deleteMutation = useMutation({
     mutationFn: () => deleteVideoTranslation(translation.id),
@@ -184,13 +187,13 @@ function VideoTranslationDeleteDialog({
   return (
     <div className="flex flex-col gap-4">
       <p className="text-sm text-muted-foreground">
-        Are you sure you want to delete the{" "}
+        {t("CONFIRM_DELETE_TRANS_THE")}{" "}
         <span className="font-medium text-foreground">{languageCode}</span>{" "}
-        translation{" "}
+        {t("CONFIRM_DELETE_TRANS_WORD")}{" "}
         <span className="font-medium text-foreground">
           &ldquo;{translation.name}&rdquo;
         </span>
-        ? This action cannot be undone.
+        {t("CONFIRM_DELETE_SUFFIX")}
       </p>
 
       {deleteMutation.error && (
@@ -205,7 +208,7 @@ function VideoTranslationDeleteDialog({
           onClick={() => deleteMutation.mutate()}
           disabled={deleteMutation.isPending}
         >
-          {deleteMutation.isPending ? "Deleting…" : "Delete"}
+          {deleteMutation.isPending ? t("DELETING") : t("DELETE")}
         </Button>
       </DialogFooter>
     </div>
@@ -225,6 +228,7 @@ function VideoTranslationRow({
 }) {
   const [editOpen, setEditOpen] = useState(false);
   const [deleteOpen, setDeleteOpen] = useState(false);
+  const t = useTranslations("DASHBOARD");
   const language = languages.find((l) => l.id === translation.languageId);
 
   return (
@@ -246,7 +250,7 @@ function VideoTranslationRow({
             </DialogTrigger>
             <DialogContent>
               <DialogHeader>
-                <DialogTitle>Edit Translation</DialogTitle>
+                <DialogTitle>{t("EDIT_TRANSLATION")}</DialogTitle>
               </DialogHeader>
               <VideoTranslationFormDialog
                 videoId={videoId}
@@ -272,7 +276,7 @@ function VideoTranslationRow({
             </DialogTrigger>
             <DialogContent>
               <DialogHeader>
-                <DialogTitle>Delete Translation</DialogTitle>
+                <DialogTitle>{t("DELETE_TRANSLATION")}</DialogTitle>
               </DialogHeader>
               <VideoTranslationDeleteDialog
                 videoId={videoId}
@@ -294,6 +298,7 @@ function VideoTranslationsTab({ videoId }: { videoId: string }) {
   const [addOpen, setAddOpen] = useState(false);
   const [page, setPage] = useState(1);
   const pageSize = 20;
+  const t = useTranslations("DASHBOARD");
 
   const { data: translationsData, isLoading, isError } = useQuery({
     queryKey: ["video-translations", videoId, page],
@@ -324,11 +329,11 @@ function VideoTranslationsTab({ videoId }: { videoId: string }) {
         <Dialog open={addOpen} onOpenChange={setAddOpen}>
           <DialogTrigger render={<Button size="sm" />}>
             <PlusIcon className="size-4" />
-            Add
+            {t("ADD")}
           </DialogTrigger>
           <DialogContent>
             <DialogHeader>
-              <DialogTitle>Add Translation</DialogTitle>
+              <DialogTitle>{t("ADD_TRANSLATION")}</DialogTitle>
             </DialogHeader>
             <VideoTranslationFormDialog
               videoId={videoId}
@@ -340,16 +345,16 @@ function VideoTranslationsTab({ videoId }: { videoId: string }) {
       </div>
 
       {isLoading && (
-        <p className="px-4 py-6 text-sm text-muted-foreground">Loading…</p>
+        <p className="px-4 py-6 text-sm text-muted-foreground">{t("LOADING")}</p>
       )}
       {isError && (
         <p className="px-4 py-6 text-sm text-destructive">
-          Failed to load translations.
+          {t("FAILED_LOAD_TRANSLATIONS")}
         </p>
       )}
       {!isLoading && !isError && translations.length === 0 && (
         <p className="px-4 py-6 text-sm text-muted-foreground">
-          No translations yet.
+          {t("NO_TRANSLATIONS")}
         </p>
       )}
       {translations.length > 0 && (
@@ -358,22 +363,22 @@ function VideoTranslationsTab({ videoId }: { videoId: string }) {
           <thead>
             <tr className="border-b border-border bg-muted/30">
               <th className="py-2 pl-4 pr-2 text-left text-xs font-medium text-muted-foreground">
-                Lang
+                {t("LANG")}
               </th>
               <th className="py-2 px-2 text-left text-xs font-medium text-muted-foreground">
-                Name
+                {t("NAME")}
               </th>
               <th className="py-2 pl-2 pr-4 text-right text-xs font-medium text-muted-foreground">
-                Actions
+                {t("ACTIONS")}
               </th>
             </tr>
           </thead>
           <tbody>
-            {translations.map((t) => (
+            {translations.map((item) => (
               <VideoTranslationRow
-                key={t.id}
+                key={item.id}
                 videoId={videoId}
-                translation={t}
+                translation={item}
                 languages={languages}
               />
             ))}
@@ -390,7 +395,7 @@ function VideoTranslationsTab({ videoId }: { videoId: string }) {
               onClick={() => setPage((p) => Math.max(1, p - 1))}
               disabled={page === 1}
             >
-              Previous
+              {t("PREVIOUS")}
             </Button>
             <span className="px-2 text-xs text-muted-foreground">
               {page} / {totalPages}
@@ -401,7 +406,7 @@ function VideoTranslationsTab({ videoId }: { videoId: string }) {
               onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
               disabled={page === totalPages}
             >
-              Next
+              {t("NEXT")}
             </Button>
           </div>
         </div>
@@ -423,6 +428,7 @@ function VideoEditForm({
 }) {
   const router = useRouter();
   const queryClient = useQueryClient();
+  const t = useTranslations("DASHBOARD");
 
   const [internalName, setInternalName] = useState(video.internalName ?? "");
   const [referenceId, setReferenceId] = useState(video.referenceId ?? "");
@@ -458,7 +464,7 @@ function VideoEditForm({
     <form onSubmit={handleSubmit} className="flex flex-col gap-4 px-4 py-5 sm:px-6 sm:py-6">
       <div className="flex flex-col gap-1.5">
         <label htmlFor="internalName" className="text-sm font-medium">
-          Internal Name
+          {t("INTERNAL_NAME")}
         </label>
         <input
           id="internalName"
@@ -472,7 +478,7 @@ function VideoEditForm({
 
       <div className="flex flex-col gap-1.5">
         <label htmlFor="referenceId" className="text-sm font-medium">
-          Reference ID
+          {t("REFERENCE_ID")}
         </label>
         <input
           id="referenceId"
@@ -486,7 +492,7 @@ function VideoEditForm({
 
       <div className="flex flex-col gap-1.5">
         <label htmlFor="categoryId" className="text-sm font-medium">
-          Category
+          {t("CATEGORY")}
         </label>
         <select
           id="categoryId"
@@ -494,7 +500,7 @@ function VideoEditForm({
           onChange={(e) => setCategoryId(e.target.value)}
           className={inputClass}
         >
-          <option value="">— Select category —</option>
+          <option value="">{t("SELECT_CATEGORY")}</option>
           {categories.map((cat) => (
             <option key={cat.id} value={cat.id}>
               {cat.internalName}
@@ -511,10 +517,10 @@ function VideoEditForm({
 
       <div className="flex items-center gap-2 pt-2">
         <Button type="submit" disabled={updateMutation.isPending}>
-          {updateMutation.isPending ? "Saving…" : "Save Changes"}
+          {updateMutation.isPending ? t("SAVING") : t("SAVE_CHANGES")}
         </Button>
         <Button variant="outline" render={<Link href={`/${locale}/videos`} />}>
-          Cancel
+          {t("CANCEL")}
         </Button>
       </div>
     </form>
@@ -526,6 +532,7 @@ function VideoEditForm({
 export default function VideoEditClient({ id }: { id: string }) {
   const pathname = usePathname();
   const locale = pathname.split("/")[1];
+  const t = useTranslations("DASHBOARD");
 
   const { data: videoData, isLoading, isError } = useQuery({
     queryKey: ["video", id],
@@ -535,14 +542,14 @@ export default function VideoEditClient({ id }: { id: string }) {
 
   if (isLoading) {
     return (
-      <p className="text-sm text-muted-foreground px-4 py-6">Loading…</p>
+      <p className="text-sm text-muted-foreground px-4 py-6">{t("LOADING")}</p>
     );
   }
 
   if (isError || !videoData) {
     return (
       <p className="text-sm text-destructive px-4 py-6">
-        Failed to load video.
+        {t("FAILED_LOAD_VIDEO")}
       </p>
     );
   }
@@ -550,13 +557,13 @@ export default function VideoEditClient({ id }: { id: string }) {
   return (
     <Card>
       <CardHeader className="border-b">
-        <CardTitle>Edit Video</CardTitle>
+        <CardTitle>{t("EDIT_VIDEO")}</CardTitle>
       </CardHeader>
       <CardContent className="p-0">
         <Tabs defaultValue="details">
           <TabsList>
-            <TabsTrigger value="details">Details</TabsTrigger>
-            <TabsTrigger value="translations">Translations</TabsTrigger>
+            <TabsTrigger value="details">{t("DETAILS")}</TabsTrigger>
+            <TabsTrigger value="translations">{t("TRANSLATIONS")}</TabsTrigger>
           </TabsList>
           <TabsContent value="details">
             <VideoEditForm id={id} video={videoData} locale={locale} />

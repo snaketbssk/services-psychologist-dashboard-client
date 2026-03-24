@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { usePathname } from "next/navigation";
+import { useTranslations } from "next-intl";
 import Link from "next/link";
 import {
   getCategories,
@@ -31,6 +32,7 @@ function CategoryDeleteDialog({
   onClose: () => void;
 }) {
   const queryClient = useQueryClient();
+  const t = useTranslations("DASHBOARD");
 
   const deleteMutation = useMutation({
     mutationFn: () => deleteCategory(category.id),
@@ -43,11 +45,11 @@ function CategoryDeleteDialog({
   return (
     <div className="flex flex-col gap-4">
       <p className="text-sm text-muted-foreground">
-        Are you sure you want to delete{" "}
+        {t("CONFIRM_DELETE_PREFIX")}{" "}
         <span className="font-medium text-foreground">
           {category.internalName}
         </span>
-        ? This action cannot be undone.
+        {t("CONFIRM_DELETE_SUFFIX")}
       </p>
 
       {deleteMutation.error && (
@@ -62,7 +64,7 @@ function CategoryDeleteDialog({
           onClick={() => deleteMutation.mutate()}
           disabled={deleteMutation.isPending}
         >
-          {deleteMutation.isPending ? "Deleting…" : "Delete"}
+          {deleteMutation.isPending ? t("DELETING") : t("DELETE")}
         </Button>
       </DialogFooter>
     </div>
@@ -79,6 +81,7 @@ function CategoryRow({
   locale: string;
 }) {
   const [deleteOpen, setDeleteOpen] = useState(false);
+  const t = useTranslations("DASHBOARD");
 
   return (
     <tr className="border-b border-border last:border-0">
@@ -114,7 +117,7 @@ function CategoryRow({
             </DialogTrigger>
             <DialogContent>
               <DialogHeader>
-                <DialogTitle>Delete Category</DialogTitle>
+                <DialogTitle>{t("DELETE_CATEGORY")}</DialogTitle>
               </DialogHeader>
               <CategoryDeleteDialog
                 category={category}
@@ -135,6 +138,7 @@ export default function CategoriesClient() {
   const pageSize = 20;
   const pathname = usePathname();
   const locale = pathname.split("/")[1];
+  const t = useTranslations("DASHBOARD");
 
   const { data, isLoading, isError } = useQuery({
     queryKey: ["categories", page],
@@ -151,29 +155,29 @@ export default function CategoriesClient() {
   return (
     <Card>
       <CardHeader className="border-b">
-        <CardTitle>Categories</CardTitle>
+        <CardTitle>{t("CATEGORIES")}</CardTitle>
         <div className="col-start-2 row-span-2 row-start-1 self-start justify-self-end">
           <Button size="sm" render={<Link href={`/${locale}/categories/create`} />}>
             <PlusIcon className="size-4" />
-            <span className="hidden sm:inline">Add Category</span>
+            <span className="hidden sm:inline">{t("ADD_CATEGORY")}</span>
           </Button>
         </div>
       </CardHeader>
 
       <CardContent className="p-0">
         {isLoading && (
-          <p className="px-4 py-6 text-sm text-muted-foreground">Loading…</p>
+          <p className="px-4 py-6 text-sm text-muted-foreground">{t("LOADING")}</p>
         )}
 
         {isError && (
           <p className="px-4 py-6 text-sm text-destructive">
-            Failed to load categories.
+            {t("FAILED_LOAD_CATEGORIES")}
           </p>
         )}
 
         {!isLoading && !isError && categories.length === 0 && (
           <p className="px-4 py-6 text-sm text-muted-foreground">
-            No categories found.
+            {t("NO_CATEGORIES")}
           </p>
         )}
 
@@ -183,13 +187,13 @@ export default function CategoriesClient() {
               <thead>
                 <tr className="border-b border-border bg-muted/30">
                   <th className="py-2.5 pl-4 pr-2 text-left text-xs font-medium text-muted-foreground">
-                    Internal Name
+                    {t("INTERNAL_NAME")}
                   </th>
                   <th className="hidden sm:table-cell py-2.5 px-2 text-left text-xs font-medium text-muted-foreground">
-                    Created
+                    {t("CREATED")}
                   </th>
                   <th className="py-2.5 pl-2 pr-4 text-right text-xs font-medium text-muted-foreground">
-                    Actions
+                    {t("ACTIONS")}
                   </th>
                 </tr>
               </thead>
@@ -214,7 +218,7 @@ export default function CategoriesClient() {
                 onClick={() => setPage((p) => Math.max(1, p - 1))}
                 disabled={page === 1}
               >
-                Previous
+                {t("PREVIOUS")}
               </Button>
               <span className="px-2 text-xs text-muted-foreground">
                 {page} / {totalPages}
@@ -225,7 +229,7 @@ export default function CategoriesClient() {
                 onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
                 disabled={page === totalPages}
               >
-                Next
+                {t("NEXT")}
               </Button>
             </div>
           </div>

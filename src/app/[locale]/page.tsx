@@ -1,41 +1,6 @@
-import { setRequestLocale } from "next-intl/server";
+import { setRequestLocale, getTranslations } from "next-intl/server";
 import Link from "next/link";
 import { FileText, Video, Tag, Globe2 } from "lucide-react";
-
-const SECTIONS = [
-  {
-    label: "Blogs",
-    description: "Manage blog posts and translations",
-    href: "/blogs",
-    icon: FileText,
-    color: "#666CFF",
-    bg: "rgba(102, 108, 255, 0.12)",
-  },
-  {
-    label: "Videos",
-    description: "Manage video content",
-    href: "/videos",
-    icon: Video,
-    color: "#26C6F9",
-    bg: "rgba(38, 198, 249, 0.12)",
-  },
-  {
-    label: "Categories",
-    description: "Organize content categories",
-    href: "/categories",
-    icon: Tag,
-    color: "#72E128",
-    bg: "rgba(114, 225, 40, 0.12)",
-  },
-  {
-    label: "Languages",
-    description: "Configure supported languages",
-    href: "/languages",
-    icon: Globe2,
-    color: "#FDB528",
-    bg: "rgba(253, 181, 40, 0.12)",
-  },
-];
 
 export default async function HomePage({
   params,
@@ -44,6 +9,42 @@ export default async function HomePage({
 }) {
   const { locale } = await params;
   setRequestLocale(locale);
+  const t = await getTranslations("DASHBOARD");
+
+  const sections = [
+    {
+      label: t("BLOGS"),
+      description: t("BLOGS_DESC"),
+      href: "/blogs",
+      icon: FileText,
+      color: "#666CFF",
+      bg: "rgba(102, 108, 255, 0.12)",
+    },
+    {
+      label: t("VIDEOS"),
+      description: t("VIDEOS_DESC"),
+      href: "/videos",
+      icon: Video,
+      color: "#26C6F9",
+      bg: "rgba(38, 198, 249, 0.12)",
+    },
+    {
+      label: t("CATEGORIES"),
+      description: t("CATEGORIES_DESC"),
+      href: "/categories",
+      icon: Tag,
+      color: "#72E128",
+      bg: "rgba(114, 225, 40, 0.12)",
+    },
+    {
+      label: t("LANGUAGES"),
+      description: t("LANGUAGES_DESC"),
+      href: "/languages",
+      icon: Globe2,
+      color: "#FDB528",
+      bg: "rgba(253, 181, 40, 0.12)",
+    },
+  ];
 
   return (
     <div className="space-y-6">
@@ -58,10 +59,10 @@ export default async function HomePage({
           </div>
           <div>
             <h1 className="text-xl font-semibold text-foreground">
-              Welcome to Psy Dashboard! 👋
+              {t("WELCOME")}
             </h1>
             <p className="text-sm text-muted-foreground mt-0.5">
-              Manage your psychologist content from one place.
+              {t("WELCOME_DESC")}
             </p>
           </div>
         </div>
@@ -70,10 +71,10 @@ export default async function HomePage({
       {/* Quick access cards */}
       <div>
         <h2 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-3">
-          Quick Access
+          {t("QUICK_ACCESS")}
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {SECTIONS.map((section) => (
+          {sections.map((section) => (
             <Link key={section.href} href={`/${locale}${section.href}`}>
               <div className="bg-card border border-border rounded-xl p-5 hover:shadow-md transition-shadow cursor-pointer group h-full">
                 <div

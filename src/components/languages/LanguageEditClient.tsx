@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter, usePathname } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import {
   getLanguages,
@@ -29,6 +30,7 @@ function LanguageEditForm({
 }) {
   const router = useRouter();
   const queryClient = useQueryClient();
+  const t = useTranslations("DASHBOARD");
 
   const [code, setCode] = useState(language.code ?? "");
 
@@ -50,7 +52,7 @@ function LanguageEditForm({
     <form onSubmit={handleSubmit} className="flex flex-col gap-4 px-4 py-5 sm:px-6 sm:py-6">
       <div className="flex flex-col gap-1.5">
         <label htmlFor="code" className="text-sm font-medium">
-          Language Code
+          {t("LANGUAGE_CODE")}
         </label>
         <input
           id="code"
@@ -70,10 +72,10 @@ function LanguageEditForm({
 
       <div className="flex items-center gap-2 pt-2">
         <Button type="submit" disabled={updateMutation.isPending}>
-          {updateMutation.isPending ? "Saving…" : "Save Changes"}
+          {updateMutation.isPending ? t("SAVING") : t("SAVE_CHANGES")}
         </Button>
         <Button variant="outline" render={<Link href={`/${locale}/languages`} />}>
-          Cancel
+          {t("CANCEL")}
         </Button>
       </div>
     </form>
@@ -85,6 +87,7 @@ function LanguageEditForm({
 export default function LanguageEditClient({ id }: { id: string }) {
   const pathname = usePathname();
   const locale = pathname.split("/")[1];
+  const t = useTranslations("DASHBOARD");
 
   const { data: languageData, isLoading, isError } = useQuery({
     queryKey: ["languages"],
@@ -94,14 +97,14 @@ export default function LanguageEditClient({ id }: { id: string }) {
 
   if (isLoading) {
     return (
-      <p className="text-sm text-muted-foreground px-4 py-6">Loading…</p>
+      <p className="text-sm text-muted-foreground px-4 py-6">{t("LOADING")}</p>
     );
   }
 
   if (isError || !languageData) {
     return (
       <p className="text-sm text-destructive px-4 py-6">
-        Failed to load language.
+        {t("FAILED_LOAD_LANGUAGE")}
       </p>
     );
   }
@@ -109,12 +112,12 @@ export default function LanguageEditClient({ id }: { id: string }) {
   return (
     <Card className="max-w-xl">
       <CardHeader className="border-b">
-        <CardTitle>Edit Language</CardTitle>
+        <CardTitle>{t("EDIT_LANGUAGE")}</CardTitle>
       </CardHeader>
       <CardContent className="p-0">
         <Tabs defaultValue="details">
           <TabsList>
-            <TabsTrigger value="details">Details</TabsTrigger>
+            <TabsTrigger value="details">{t("DETAILS")}</TabsTrigger>
           </TabsList>
           <TabsContent value="details">
             <LanguageEditForm id={id} language={languageData} locale={locale} />

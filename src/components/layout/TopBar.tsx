@@ -2,41 +2,36 @@
 
 import { Menu } from "lucide-react";
 import { usePathname } from "next/navigation";
+import { useTranslations } from "next-intl";
 
 interface TopBarProps {
   onMenuToggle: () => void;
 }
 
-const PAGE_TITLES: Record<string, string> = {
-  blogs: "Blogs",
-  videos: "Videos",
-  categories: "Categories",
-  languages: "Languages",
-};
-
-const SINGULAR: Record<string, string> = {
-  blogs: "Blog",
-  videos: "Video",
-  categories: "Category",
-  languages: "Language",
-};
-
 export default function TopBar({ onMenuToggle }: TopBarProps) {
   const pathname = usePathname();
+  const t = useTranslations("DASHBOARD");
   const segments = pathname.split("/").filter(Boolean);
   // segments[0] = locale, segments[1] = resource, segments[2] = 'create' | id, segments[3] = 'edit'
   const resourceKey = segments[1];
   const sub = segments[2];
   const action = segments[3];
 
-  let pageTitle = "Dashboard";
-  if (resourceKey) {
+  const titles: Record<string, { list: string; create: string; edit: string }> = {
+    blogs: { list: t("BLOGS"), create: t("CREATE_BLOG"), edit: t("EDIT_BLOG") },
+    videos: { list: t("VIDEOS"), create: t("CREATE_VIDEO"), edit: t("EDIT_VIDEO") },
+    categories: { list: t("CATEGORIES"), create: t("CREATE_CATEGORY"), edit: t("EDIT_CATEGORY") },
+    languages: { list: t("LANGUAGES"), create: t("CREATE_LANGUAGE"), edit: t("EDIT_LANGUAGE") },
+  };
+
+  let pageTitle = t("DASHBOARD");
+  if (resourceKey && titles[resourceKey]) {
     if (sub === "create") {
-      pageTitle = `Create ${SINGULAR[resourceKey] ?? resourceKey}`;
+      pageTitle = titles[resourceKey].create;
     } else if (action === "edit") {
-      pageTitle = `Edit ${SINGULAR[resourceKey] ?? resourceKey}`;
+      pageTitle = titles[resourceKey].edit;
     } else {
-      pageTitle = PAGE_TITLES[resourceKey] ?? resourceKey;
+      pageTitle = titles[resourceKey].list;
     }
   }
 
@@ -65,7 +60,7 @@ export default function TopBar({ onMenuToggle }: TopBarProps) {
           A
         </div>
         <span className="hidden sm:block text-sm font-medium text-foreground">
-          Admin
+          {t("ADMIN")}
         </span>
       </div>
     </header>
