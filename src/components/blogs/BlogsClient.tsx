@@ -74,8 +74,8 @@ function BlogRow({ blog, locale }: { blog: IBlogShortDto; locale: string }) {
 
   return (
     <tr className="border-b border-border last:border-0">
-      <td className="py-3 pl-4 pr-2 text-sm font-mono max-w-[8rem] truncate">{blog.internalName}</td>
-      <td className="py-3 px-2 text-sm max-w-[12rem] truncate">{blog.title}</td>
+      <td className="py-3 pl-4 pr-2 text-sm font-mono max-w-0 w-[30%] truncate">{blog.internalName}</td>
+      <td className="py-3 px-2 text-sm max-w-0 w-full truncate">{blog.title}</td>
       <td className="hidden sm:table-cell py-3 px-2 text-sm text-muted-foreground">
         {new Date(blog.date).toLocaleDateString()}
       </td>
@@ -83,7 +83,7 @@ function BlogRow({ blog, locale }: { blog: IBlogShortDto; locale: string }) {
         <div className="flex items-center justify-end gap-1">
           <Link
             href={`/${locale}/blogs/${blog.id}/edit`}
-            className="inline-flex items-center justify-center rounded-md w-7 h-7 text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
+            className="inline-flex items-center justify-center rounded-md w-9 h-9 text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
             title="Edit"
           >
             <PencilIcon className="size-4" />

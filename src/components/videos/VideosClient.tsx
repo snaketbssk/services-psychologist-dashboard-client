@@ -74,18 +74,18 @@ function VideoRow({ video, locale }: { video: IVideoDto; locale: string }) {
 
   return (
     <tr className="border-b border-border last:border-0">
-      <td className="py-3 pl-4 pr-2 text-sm max-w-[12rem] truncate">{video.title}</td>
+      <td className="py-3 pl-4 pr-2 text-sm max-w-0 w-full truncate">{video.title}</td>
       <td className="hidden sm:table-cell py-3 px-2 text-sm font-mono text-muted-foreground">
         {video.videoId}
       </td>
-      <td className="py-3 px-2 text-sm text-muted-foreground max-w-[8rem] truncate">
+      <td className="py-3 px-2 text-sm text-muted-foreground max-w-0 w-[35%] truncate">
         {video.category}
       </td>
       <td className="py-3 pl-2 pr-4">
         <div className="flex items-center justify-end gap-1">
           <Link
             href={`/${locale}/videos/${video.id}/edit`}
-            className="inline-flex items-center justify-center rounded-md w-7 h-7 text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
+            className="inline-flex items-center justify-center rounded-md w-9 h-9 text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
             title="Edit"
           >
             <PencilIcon className="size-4" />

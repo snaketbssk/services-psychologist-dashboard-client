@@ -30,7 +30,7 @@ import { PlusIcon, PencilIcon, Trash2Icon } from "lucide-react";
 import Link from "next/link";
 
 const inputClass =
-  "h-8 rounded-lg border border-border bg-background px-3 text-sm outline-none ring-0 focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50";
+  "h-10 rounded-lg border border-border bg-background px-3 text-sm outline-none ring-0 focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50";
 
 const textareaClass =
   "rounded-lg border border-border bg-background px-3 py-2 text-sm outline-none ring-0 focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50";
@@ -455,7 +455,7 @@ function VideoEditForm({
   };
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col gap-4 px-6 py-6">
+    <form onSubmit={handleSubmit} className="flex flex-col gap-4 px-4 py-5 sm:px-6 sm:py-6">
       <div className="flex flex-col gap-1.5">
         <label htmlFor="internalName" className="text-sm font-medium">
           Internal Name

@@ -123,7 +123,7 @@ function LanguageRow({
 
           <Link
             href={`/${locale}/languages/${language.id}/edit`}
-            className="inline-flex items-center justify-center rounded-md w-7 h-7 text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
+            className="inline-flex items-center justify-center rounded-md w-9 h-9 text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
             title="Edit"
           >
             <PencilIcon className="size-4" />

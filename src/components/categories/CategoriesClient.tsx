@@ -82,7 +82,7 @@ function CategoryRow({
 
   return (
     <tr className="border-b border-border last:border-0">
-      <td className="py-3 pl-4 pr-2 text-sm font-mono max-w-[12rem] truncate">
+      <td className="py-3 pl-4 pr-2 text-sm font-mono max-w-0 w-full truncate">
         {category.internalName}
       </td>
       <td className="hidden sm:table-cell py-3 px-2 text-sm text-muted-foreground">
@@ -92,7 +92,7 @@ function CategoryRow({
         <div className="flex items-center justify-end gap-1">
           <Link
             href={`/${locale}/categories/${category.id}/edit`}
-            className="inline-flex items-center justify-center rounded-md w-7 h-7 text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
+            className="inline-flex items-center justify-center rounded-md w-9 h-9 text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
             title="Edit"
           >
             <PencilIcon className="size-4" />
