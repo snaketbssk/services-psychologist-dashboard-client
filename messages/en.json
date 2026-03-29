@@ -329,5 +329,43 @@
     "CONFIRM_DELETE_TRANS_THE": "Are you sure you want to delete the",
     "CONFIRM_DELETE_TRANS_WORD": "translation",
     "CONFIRM_DELETE_SUFFIX": "? This action cannot be undone."
+  },
+
+  "AUTH": {
+    "LOGIN_TITLE": "Sign In",
+    "LOGIN_SUBTITLE": "Enter your credentials to access the dashboard",
+    "USERNAME": "Username",
+    "USERNAME_PLACEHOLDER": "Enter your username",
+    "PASSWORD": "Password",
+    "PASSWORD_PLACEHOLDER": "Enter your password",
+    "SIGN_IN": "Sign In",
+    "SIGNING_IN": "Signing in…",
+    "GENERIC_ERROR": "An error occurred. Please try again.",
+    "OR_CONTINUE_WITH": "or continue with",
+    "CONTINUE_GITHUB": "Continue with GitHub",
+    "CONTINUE_GOOGLE": "Continue with Google",
+    "CONTINUE_MICROSOFT": "Continue with Microsoft",
+    "OAUTH_COMPLETING": "Completing sign in…",
+    "OAUTH_UNKNOWN_RESPONSE": "Unexpected response from authentication server.",
+    "BACK_TO_LOGIN": "Back to Login"
+  },
+
+  "ACCOUNT": {
+    "TITLE": "Account",
+    "NAV_LABEL": "Account",
+    "USERNAME": "Username",
+    "EMAIL": "Email",
+    "FIRST_NAME": "First Name",
+    "LAST_NAME": "Last Name",
+    "ROLES": "Roles",
+    "CHANGE_PASSWORD": "Change Password",
+    "CURRENT_PASSWORD": "Current Password",
+    "NEW_PASSWORD": "New Password",
+    "CONFIRM_PASSWORD": "Confirm Password",
+    "SAVE_PASSWORD": "Save Password",
+    "SAVING": "Saving…",
+    "PASSWORD_SUCCESS": "Password changed successfully.",
+    "PASSWORD_MISMATCH": "New passwords do not match.",
+    "LOGOUT": "Sign Out"
   }
 }

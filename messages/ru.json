@@ -329,5 +329,43 @@
     "CONFIRM_DELETE_TRANS_THE": "Вы уверены, что хотите удалить",
     "CONFIRM_DELETE_TRANS_WORD": "перевод",
     "CONFIRM_DELETE_SUFFIX": "? Это действие нельзя отменить."
+  },
+
+  "AUTH": {
+    "LOGIN_TITLE": "Вход",
+    "LOGIN_SUBTITLE": "Введите данные для доступа к панели управления",
+    "USERNAME": "Имя пользователя",
+    "USERNAME_PLACEHOLDER": "Введите имя пользователя",
+    "PASSWORD": "Пароль",
+    "PASSWORD_PLACEHOLDER": "Введите пароль",
+    "SIGN_IN": "Войти",
+    "SIGNING_IN": "Выполняется вход…",
+    "GENERIC_ERROR": "Произошла ошибка. Попробуйте ещё раз.",
+    "OR_CONTINUE_WITH": "или войдите через",
+    "CONTINUE_GITHUB": "Продолжить с GitHub",
+    "CONTINUE_GOOGLE": "Продолжить с Google",
+    "CONTINUE_MICROSOFT": "Продолжить с Microsoft",
+    "OAUTH_COMPLETING": "Завершение входа…",
+    "OAUTH_UNKNOWN_RESPONSE": "Неожиданный ответ от сервера аутентификации.",
+    "BACK_TO_LOGIN": "Назад к входу"
+  },
+
+  "ACCOUNT": {
+    "TITLE": "Аккаунт",
+    "NAV_LABEL": "Аккаунт",
+    "USERNAME": "Имя пользователя",
+    "EMAIL": "Email",
+    "FIRST_NAME": "Имя",
+    "LAST_NAME": "Фамилия",
+    "ROLES": "Роли",
+    "CHANGE_PASSWORD": "Сменить пароль",
+    "CURRENT_PASSWORD": "Текущий пароль",
+    "NEW_PASSWORD": "Новый пароль",
+    "CONFIRM_PASSWORD": "Подтвердите пароль",
+    "SAVE_PASSWORD": "Сохранить пароль",
+    "SAVING": "Сохранение…",
+    "PASSWORD_SUCCESS": "Пароль успешно изменён.",
+    "PASSWORD_MISMATCH": "Новые пароли не совпадают.",
+    "LOGOUT": "Выйти"
   }
 }

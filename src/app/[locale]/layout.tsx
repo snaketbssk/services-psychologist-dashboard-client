@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages, setRequestLocale } from "next-intl/server";
 import QueryProvider from "@/providers/QueryProvider";
+import AuthProvider from "@/providers/AuthProvider";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import DashboardShell from "@/components/layout/DashboardShell";
@@ -40,9 +41,11 @@ export default async function LocaleLayout({
   return (
     <QueryProvider>
       <NextIntlClientProvider messages={messages}>
-        <DashboardShell locale={locale}>
-          {children}
-        </DashboardShell>
+        <AuthProvider>
+          <DashboardShell locale={locale}>
+            {children}
+          </DashboardShell>
+        </AuthProvider>
       </NextIntlClientProvider>
     </QueryProvider>
   );

@@ -1,8 +1,10 @@
 "use client";
 
+import Link from "next/link";
 import { Menu } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { useTranslations } from "next-intl";
+import { useAuth } from "@/providers/AuthProvider";
 
 interface TopBarProps {
   onMenuToggle: () => void;
@@ -11,7 +13,10 @@ interface TopBarProps {
 export default function TopBar({ onMenuToggle }: TopBarProps) {
   const pathname = usePathname();
   const t = useTranslations("DASHBOARD");
+  const tAccount = useTranslations("ACCOUNT");
+  const { user } = useAuth();
   const segments = pathname.split("/").filter(Boolean);
+  const locale = segments[0] || "en";
   // segments[0] = locale, segments[1] = resource, segments[2] = 'create' | id, segments[3] = 'edit'
   const resourceKey = segments[1];
   const sub = segments[2];
@@ -22,7 +27,15 @@ export default function TopBar({ onMenuToggle }: TopBarProps) {
     videos: { list: t("VIDEOS"), create: t("CREATE_VIDEO"), edit: t("EDIT_VIDEO") },
     categories: { list: t("CATEGORIES"), create: t("CREATE_CATEGORY"), edit: t("EDIT_CATEGORY") },
     languages: { list: t("LANGUAGES"), create: t("CREATE_LANGUAGE"), edit: t("EDIT_LANGUAGE") },
+    account: { list: tAccount("TITLE"), create: tAccount("TITLE"), edit: tAccount("TITLE") },
   };
+
+  const firstName = user?.user.firstName ?? "";
+  const lastName  = user?.user.lastName  ?? "";
+  const initials  = ((firstName[0] ?? "") + (lastName[0] ?? "")).toUpperCase()
+    || user?.user.userName?.slice(0, 2).toUpperCase()
+    || "A";
+  const displayName = `${firstName} ${lastName}`.trim() || user?.user.userName || t("ADMIN");
 
   let pageTitle = t("DASHBOARD");
   if (resourceKey && titles[resourceKey]) {
@@ -53,15 +66,17 @@ export default function TopBar({ onMenuToggle }: TopBarProps) {
 
       {/* Right side */}
       <div className="flex items-center gap-2">
-        <div
-          className="w-8 h-8 rounded-full flex items-center justify-center text-white text-sm font-semibold shrink-0"
-          style={{ background: "#666CFF" }}
-        >
-          A
-        </div>
-        <span className="hidden sm:block text-sm font-medium text-foreground">
-          {t("ADMIN")}
-        </span>
+        <Link href={`/${locale}/account`} className="flex items-center gap-2">
+          <div
+            className="w-8 h-8 rounded-full flex items-center justify-center text-white text-sm font-semibold shrink-0"
+            style={{ background: "#666CFF" }}
+          >
+            {initials}
+          </div>
+          <span className="hidden sm:block text-sm font-medium text-foreground">
+            {displayName}
+          </span>
+        </Link>
       </div>
     </header>
   );

@@ -10,6 +10,7 @@ import {
   Video,
   Tag,
   Globe2,
+  User,
 } from "lucide-react";
 
 interface NavItem {
@@ -38,6 +39,7 @@ export default function Sidebar({
 }: SidebarProps) {
   const pathname = usePathname();
   const t = useTranslations("DASHBOARD");
+  const tAccount = useTranslations("ACCOUNT");
 
   const sections: NavSection[] = [
     {
@@ -58,6 +60,7 @@ export default function Sidebar({
       items: [
         { label: t("CATEGORIES"), href: `/${locale}/categories`, icon: Tag },
         { label: t("LANGUAGES"), href: `/${locale}/languages`, icon: Globe2 },
+        { label: tAccount("NAV_LABEL"), href: `/${locale}/account`, icon: User },
       ],
     },
   ];

@@ -59,7 +59,8 @@
       "mcp__playwright__browser_evaluate",
       "mcp__playwright__browser_resize",
       "Bash(find /c/Users/snake/source/repos/service-psy/services-psychologist-dashboard-client/src/app/[locale] -type f \\\\\\( -name \"*.tsx\" -o -name \"*.ts\" \\\\\\))",
-      "Bash(find /c/Users/snake/source/repos/service-psy/services-psychologist-dashboard-client/src/app/[locale] -type f -name \"page.tsx\")"
+      "Bash(find /c/Users/snake/source/repos/service-psy/services-psychologist-dashboard-client/src/app/[locale] -type f -name \"page.tsx\")",
+      "Bash(ls:*)"
     ]
   }
 }

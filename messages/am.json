@@ -329,5 +329,43 @@
     "SUCCESS": "✓ Hаghоrdаgrutyuny urkаrvets!",
     "ERROR": "Inch-оr bаn skhаl getsts: Khndrum enq krkin pоrtsаrel:",
     "CARD_TITLE": "Stаnel аnvcher khоrhrdаtvutyun"
+  },
+
+  "AUTH": {
+    "LOGIN_TITLE": "Մուտք",
+    "LOGIN_SUBTITLE": "Մուտքագրեք ձեր տվյալները՝ կառավարման վահանակ մուտք գործելու համար",
+    "USERNAME": "Օգտանուն",
+    "USERNAME_PLACEHOLDER": "Մուտքագրեք ձեր օգտանունը",
+    "PASSWORD": "Գաղտնաբառ",
+    "PASSWORD_PLACEHOLDER": "Մուտքագրեք ձեր գաղտնաբառը",
+    "SIGN_IN": "Մուտք գործել",
+    "SIGNING_IN": "Մուտք գործում…",
+    "GENERIC_ERROR": "Սխալ է տեղի ունեցել: Խնդրում ենք կրկին փորձել:",
+    "OR_CONTINUE_WITH": "կամ շարունակեք",
+    "CONTINUE_GITHUB": "Շարունակել GitHub-ով",
+    "CONTINUE_GOOGLE": "Շարունակել Google-ով",
+    "CONTINUE_MICROSOFT": "Շարունակել Microsoft-ով",
+    "OAUTH_COMPLETING": "Մուտքն ավարտվում է…",
+    "OAUTH_UNKNOWN_RESPONSE": "Անսպասելի պատասխան նույնականացման սերվերից:",
+    "BACK_TO_LOGIN": "Վերադառնալ մուտք"
+  },
+
+  "ACCOUNT": {
+    "TITLE": "Հաշիվ",
+    "NAV_LABEL": "Հաշիվ",
+    "USERNAME": "Օգտանուն",
+    "EMAIL": "Էլ. փոստ",
+    "FIRST_NAME": "Անուն",
+    "LAST_NAME": "Ազգանուն",
+    "ROLES": "Դերեր",
+    "CHANGE_PASSWORD": "Փոխել գաղտնաբառը",
+    "CURRENT_PASSWORD": "Ընթացիկ գաղտնաբառ",
+    "NEW_PASSWORD": "Նոր գաղտնաբառ",
+    "CONFIRM_PASSWORD": "Հաստատեք գաղտնաբառը",
+    "SAVE_PASSWORD": "Պահպանել գաղտնաբառը",
+    "SAVING": "Պահպանում…",
+    "PASSWORD_SUCCESS": "Գաղտնաբառը հաջողությամբ փոխվել է:",
+    "PASSWORD_MISMATCH": "Նոր գաղտնաբառերը չեն համընկնում:",
+    "LOGOUT": "Ելք"
   }
 }

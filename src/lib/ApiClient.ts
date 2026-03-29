@@ -7,7 +7,13 @@ import axios, {
 } from "axios";
 import { IConfiguration } from "@/types";
 import queryParamsBuilder from "@/lib/queryParamsBuilder";
+import { LS_ACCESS_TOKEN } from "@/lib/auth-keys";
 import https from "https";
+
+function getAuthToken(): string | null {
+  if (typeof window === "undefined") return null;
+  return localStorage.getItem(LS_ACCESS_TOKEN);
+}
 
 export interface IServiceApi {
   post(url: string, body: any, cancelToken?: CancelToken, headers?: Record<string, string>): Promise<AxiosResponse>;
@@ -32,11 +38,13 @@ export class ServiceApi implements IServiceApi {
 
     if (!interceptors) return;
 
-    // Request interceptor — on the client side, auto-inject X-Language from the URL locale segment
+    // Request interceptor — on the client side, auto-inject X-Language and Authorization headers
     this.instance.interceptors.request.use((config: InternalAxiosRequestConfig<any>) => {
       if (typeof window !== "undefined") {
         const locale = window.location.pathname.split("/")[1] || "en";
         config.headers["X-Language"] = locale;
+        const token = getAuthToken();
+        if (token) config.headers["Authorization"] = `Bearer ${token}`;
       }
       return config;
     });
@@ -53,10 +61,7 @@ export class ServiceApi implements IServiceApi {
   }
 
   postForm(url: string, formData: FormData, cancelToken?: CancelToken): Promise<AxiosResponse> {
-    return this.instance.post(url, formData, {
-      headers: { "Content-Type": "multipart/form-data" },
-      cancelToken,
-    });
+    return this.instance.post(url, formData, { cancelToken });
   }
 
   put(url: string, body: any, cancelToken?: CancelToken): Promise<AxiosResponse> {
@@ -64,10 +69,7 @@ export class ServiceApi implements IServiceApi {
   }
 
   putForm(url: string, formData: FormData, cancelToken?: CancelToken): Promise<AxiosResponse> {
-    return this.instance.post(url, formData, {
-      headers: { "Content-Type": "multipart/form-data" },
-      cancelToken,
-    });
+    return this.instance.post(url, formData, { cancelToken });
   }
 
   patch(url: string, body: any, cancelToken?: CancelToken): Promise<AxiosResponse> {
