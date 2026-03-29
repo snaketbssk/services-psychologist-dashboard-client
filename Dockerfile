@@ -9,10 +9,14 @@ RUN npm install --legacy-peer-deps
 FROM node:20-alpine AS builder
 WORKDIR /app
 
-# Declare build-time argument and expose it as an env var so Next.js
+# Declare build-time arguments and expose them as env vars so Next.js
 # can inline NEXT_PUBLIC_* values during "next build"
+
 ARG NEXT_PUBLIC_DASHBOARD_API_URL
 ENV NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_DASHBOARD_API_URL
+
+ARG NEXT_PUBLIC_IDENTITY_API_URL
+ENV NEXT_PUBLIC_IDENTITY_API_URL=$NEXT_PUBLIC_IDENTITY_API_URL
 
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .

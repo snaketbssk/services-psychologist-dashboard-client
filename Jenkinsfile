@@ -10,7 +10,9 @@ pipeline {
         DOCKER_IMAGE = 'propokot/services-psychologist-dashboard-client'
         DOCKER_CREDENTIAL = 'docker-hub-credentials'
         SERVICE_NAME = 'services-psychologist-dashboard-client'
+        NEXT_PUBLIC_API_URL = credentials('next-public-api-url')
         NEXT_PUBLIC_DASHBOARD_API_URL = credentials('next-public-dashboard-api-url')
+        NEXT_PUBLIC_IDENTITY_API_URL = credentials('next-public-identity-api-url')
     }
 
     stages {
@@ -32,7 +34,9 @@ pipeline {
             steps {
                 sh '''
                 docker build -f "$DOCKER_DOCKERFILE" --force-rm \
+                --build-arg NEXT_PUBLIC_API_URL="$NEXT_PUBLIC_API_URL"
                 --build-arg NEXT_PUBLIC_DASHBOARD_API_URL="$NEXT_PUBLIC_DASHBOARD_API_URL" \
+                --build-arg NEXT_PUBLIC_IDENTITY_API_URL="$NEXT_PUBLIC_IDENTITY_API_URL" \
                 -t "$DOCKER_IMAGE:latest" .
                 '''
             }
