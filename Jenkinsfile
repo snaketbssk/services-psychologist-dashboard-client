@@ -34,7 +34,7 @@ pipeline {
             steps {
                 sh '''
                 docker build -f "$DOCKER_DOCKERFILE" --force-rm \
-                --build-arg NEXT_PUBLIC_API_URL="$NEXT_PUBLIC_API_URL"
+                --build-arg NEXT_PUBLIC_API_URL="$NEXT_PUBLIC_API_URL" \
                 --build-arg NEXT_PUBLIC_DASHBOARD_API_URL="$NEXT_PUBLIC_DASHBOARD_API_URL" \
                 --build-arg NEXT_PUBLIC_IDENTITY_API_URL="$NEXT_PUBLIC_IDENTITY_API_URL" \
                 -t "$DOCKER_IMAGE:latest" .
