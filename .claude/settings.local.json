@@ -60,7 +60,11 @@
       "mcp__playwright__browser_resize",
       "Bash(find /c/Users/snake/source/repos/service-psy/services-psychologist-dashboard-client/src/app/[locale] -type f \\\\\\( -name \"*.tsx\" -o -name \"*.ts\" \\\\\\))",
       "Bash(find /c/Users/snake/source/repos/service-psy/services-psychologist-dashboard-client/src/app/[locale] -type f -name \"page.tsx\")",
-      "Bash(ls:*)"
+      "Bash(ls:*)",
+      "Bash(find /c/Users/snake/source/repos/service-psy/services-psychologist-dashboard-client/src -type f \\\\\\(-name *.ts -o -name *.tsx \\\\\\))",
+      "Bash(find /c/Users/snake/source/repos/Services.Identity -type f -name *connect* -o -name *authorize*)",
+      "Bash(grep -E \"\\\\.\\(cs|cshtml\\)$\")",
+      "Bash(grep -r CallbackUri /c/Users/snake/source/repos/Services.Identity/src --include=*.cs)"
     ]
   }
 }

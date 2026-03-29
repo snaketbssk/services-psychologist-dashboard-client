@@ -37,10 +37,10 @@ export default function OAuthCallbackClient({ provider: _provider }: OAuthCallba
       }
 
       // 2. Check for tokens delivered directly in query params
-      const accessToken  = searchParams.get("access_token");
-      const refreshToken = searchParams.get("refresh_token");
-      const expiresIn    = searchParams.get("expires_in");
-      const tokenType    = searchParams.get("token_type") ?? "Bearer";
+      const accessToken  = searchParams.get("accessToken");
+      const refreshToken = searchParams.get("refreshToken");
+      const expiresIn    = searchParams.get("expiresIn");
+      const tokenType    = searchParams.get("tokenType") ?? "Bearer";
       if (accessToken && refreshToken && expiresIn) {
         try {
           const session: AuthenticationSessionDto = {
